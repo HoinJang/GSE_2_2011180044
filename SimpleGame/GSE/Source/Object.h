@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "MyVector.h"
+
 using namespace std;
 
 enum Type
@@ -25,7 +27,8 @@ private:
 	int Type;
 	float Size;
 	ObjectC Color;
-	float PositionX, PositionY, PositionZ;
+	MyVector Position;
+	MyVector Speed;
 public:
 	Object();
 	~Object();
@@ -37,9 +40,9 @@ public:
 	float const GetColorGreen() { return Color.b; }
 	float const GetColorBlue() { return Color.g; }
 
-	float const GetPositionX() { return PositionX; }
-	float const GetPositionY() { return PositionY; }
-	float const GetPositionZ() { return PositionZ; }
+	float const GetPositionX() { return Position.x; }
+	float const GetPositionY() { return Position.y; }
+	float const GetPositionZ() { return Position.z; }
 
 	void setType(const int type) { this->Type = type; }
 	void setSize(const float size) { this->Size = size; }
