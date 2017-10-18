@@ -32,9 +32,26 @@ void Object::setColor(const float r, const float g, const float b)
 	this->Color.b = b;
 }
 
+void Object::setSpeed(const float Vx, const float Vy, const float Vz)
+{
+	this->Speed.SetVector(Vx, Vy, Vz);
+}
+
 void Object::Update()
 {
-	this->Position.x = Position.x + Speed.x;
-	this->Position.y = Position.y + Speed.y;
-	this->Position.z = Position.z + Speed.z;
+
+	float elapsedTime = 0.5;
+	this->Position.x = Position.x + Speed.x * elapsedTime;
+	this->Position.y = Position.y + Speed.y * elapsedTime;
+	this->Position.z = Position.z + Speed.z * elapsedTime;
+
+	if (Position.x > 250)
+		Speed.x = -Speed.x;
+	if (Position.x < -250)
+		Speed.x = -Speed.x;
+	if (Position.y > 250)
+		Speed.y = -Speed.y;
+	if (Position.y < -250)
+		Speed.y = -Speed.y;
+
 }

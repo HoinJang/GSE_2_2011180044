@@ -17,7 +17,7 @@
       <UniqueIdentifier>{aa86e47f-445f-4440-9a76-173363b46c4e}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Source">
-      <UniqueIdentifier>{91e46803-d8a4-4e39-80f6-7cd81beab9b6}</UniqueIdentifier>
+      <UniqueIdentifier>{4229805b-62a9-48d7-aa6e-995937aedc12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,10 +30,13 @@
     <ClInclude Include="Renderer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GSE\Source\Object.h">
+    <ClInclude Include="SceneMgr.h">
       <Filter>소스 파일\Source</Filter>
     </ClInclude>
-    <ClInclude Include="GSE\Source\MyVector.h">
+    <ClInclude Include="MyVector.h">
+      <Filter>소스 파일\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
       <Filter>소스 파일\Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +50,10 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GSE\Source\Object.cpp">
+    <ClCompile Include="SceneMgr.cpp">
+      <Filter>소스 파일\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
       <Filter>소스 파일\Source</Filter>
     </ClCompile>
   </ItemGroup>

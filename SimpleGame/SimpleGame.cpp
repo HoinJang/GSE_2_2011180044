@@ -14,17 +14,22 @@ but WITHOUT ANY WARRANTY.
 #include "Dependencies\freeglut.h"
 
 #include "Renderer.h"
-#include "GSE\Source\Object.h"
+#include "SceneMgr.h"
 
 Renderer *g_Renderer = NULL;
-Object Test;
+SceneMgr *g_SceneMgr = NULL;
+
 void RenderScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 
+	for (int i = 0; i < 50; i++)
+	{
+		g_Renderer->DrawSolidRect(g_SceneMgr->m_objects[i]->GetPositionX(), g_SceneMgr->m_objects[i]->GetPositionY(), g_SceneMgr->m_objects[i]->GetPositionZ(), g_SceneMgr->m_objects[i]->GetSize(), g_SceneMgr->m_objects[i]->GetColorRed(), g_SceneMgr->m_objects[i]->GetColorGreen(), g_SceneMgr->m_objects[i]->GetColorBlue(), 1);
+	}
 	// Renderer Test
-	g_Renderer->DrawSolidRect(Test.GetPositionX(), Test.GetPositionY(), Test.GetPositionZ(), Test.GetSize(), Test.GetColorRed(), Test.GetColorGreen(), Test.GetColorBlue(),1);
+	//g_Renderer->DrawSolidRect(Test.GetPositionX(), Test.GetPositionY(), Test.GetPositionZ(), Test.GetSize(), Test.GetColorRed(), Test.GetColorGreen(), Test.GetColorBlue(),1);
 	glutSwapBuffers();
 }
 
@@ -69,6 +74,7 @@ int main(int argc, char **argv)
 
 	// Initialize Renderer
 	g_Renderer = new Renderer(500, 500);
+	g_SceneMgr = new SceneMgr();
 	if (!g_Renderer->IsInitialized())
 	{
 		std::cout << "Renderer could not be initialized.. \n";

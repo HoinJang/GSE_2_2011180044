@@ -37,8 +37,8 @@ public:
 	float const GetSize() { return Size; }
 
 	float const GetColorRed() { return Color.r; }
-	float const GetColorGreen() { return Color.b; }
-	float const GetColorBlue() { return Color.g; }
+	float const GetColorGreen() { return Color.g; }
+	float const GetColorBlue() { return Color.b; }
 
 	float const GetPositionX() { return Position.x; }
 	float const GetPositionY() { return Position.y; }
@@ -48,6 +48,7 @@ public:
 	void setSize(const float size) { this->Size = size; }
 	void setPosition(const float x, const float y, const float z);
 	void setColor(const float r, const float g, const float b);
+	void setSpeed(const float Vx, const float Vy, const float Vz);
 public:
 	void Update();
 };
