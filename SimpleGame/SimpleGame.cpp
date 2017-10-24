@@ -30,16 +30,18 @@ void RenderScene(void)
 	}
 	// Renderer Test
 	//g_Renderer->DrawSolidRect(Test.GetPositionX(), Test.GetPositionY(), Test.GetPositionZ(), Test.GetSize(), Test.GetColorRed(), Test.GetColorGreen(), Test.GetColorBlue(),1);
+
 	glutSwapBuffers();
 }
 
 void Idle(void)
 {
+	g_SceneMgr->SceneUpdate();
 	RenderScene();
 }
 
 void MouseInput(int button, int state, int x, int y)
-{
+{	
 	RenderScene();
 }
 
@@ -74,7 +76,13 @@ int main(int argc, char **argv)
 
 	// Initialize Renderer
 	g_Renderer = new Renderer(500, 500);
-	g_SceneMgr = new SceneMgr();
+	//
+	if (g_SceneMgr == NULL)
+	{
+		g_SceneMgr = new SceneMgr();
+		g_SceneMgr->Init();
+	}
+	//
 	if (!g_Renderer->IsInitialized())
 	{
 		std::cout << "Renderer could not be initialized.. \n";
@@ -89,6 +97,7 @@ int main(int argc, char **argv)
 	glutMainLoop();
 
 	delete g_Renderer;
+	delete g_SceneMgr;
 
     return 0;
 }

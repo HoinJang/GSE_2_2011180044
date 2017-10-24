@@ -39,8 +39,7 @@ void Object::setSpeed(const float Vx, const float Vy, const float Vz)
 
 void Object::Update()
 {
-
-	float elapsedTime = 0.5;
+	float elapsedTime = 1.0;
 	this->Position.x = Position.x + Speed.x * elapsedTime;
 	this->Position.y = Position.y + Speed.y * elapsedTime;
 	this->Position.z = Position.z + Speed.z * elapsedTime;
@@ -53,5 +52,4 @@ void Object::Update()
 		Speed.y = -Speed.y;
 	if (Position.y < -250)
 		Speed.y = -Speed.y;
-
 }
