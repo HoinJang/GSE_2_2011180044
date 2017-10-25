@@ -11,7 +11,10 @@ Object::Object()
 	Position.x = 0.0;
 	Position.y = 0.0;
 	Position.z = 0.0;
-	Speed.SetVector(1.0, 0.0, 0.0);
+	Direction.SetVector(1.0, 0.0, 0.0);
+	Speed = 1.0;
+	Life = 1000;
+	LifeTime = 200000000;
 }
 
 Object::~Object()
@@ -32,24 +35,36 @@ void Object::setColor(const float r, const float g, const float b)
 	this->Color.b = b;
 }
 
-void Object::setSpeed(const float Vx, const float Vy, const float Vz)
+void Object::setDirection(const float Vx, const float Vy, const float Vz)
 {
-	this->Speed.SetVector(Vx, Vy, Vz);
+	this->Direction.SetVector(Vx, Vy, Vz);
 }
 
-void Object::Update()
+void Object::setSpeed(const float speed)
 {
-	float elapsedTime = 1.0;
-	this->Position.x = Position.x + Speed.x * elapsedTime;
-	this->Position.y = Position.y + Speed.y * elapsedTime;
-	this->Position.z = Position.z + Speed.z * elapsedTime;
+	this->Speed = speed;
+}
+
+void Object::Render(Renderer* renderer)
+{
+	renderer->DrawSolidRect(GetPositionX(),GetPositionY(),GetPositionZ(),GetSize(), GetColorRed(), GetColorGreen(), GetColorBlue(), 1);
+}
+
+void Object::Update(DWORD time)
+{
+	DWORD msToSecond = time * 0.01;
+	this->Position.x = Position.x + Direction.x * Speed* time;
+	this->Position.y = Position.y + Direction.y * Speed* time;
+	this->Position.z = Position.z + Direction.z * Speed* time;
+
+	this->Life -= 1;
 
 	if (Position.x > 250)
-		Speed.x = -Speed.x;
+		Direction.x = -Direction.x;
 	if (Position.x < -250)
-		Speed.x = -Speed.x;
+		Direction.x = -Direction.x;
 	if (Position.y > 250)
-		Speed.y = -Speed.y;
+		Direction.y = -Direction.y;
 	if (Position.y < -250)
-		Speed.y = -Speed.y;
+		Direction.y = -Direction.y;
 }

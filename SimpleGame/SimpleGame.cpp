@@ -16,27 +16,24 @@ but WITHOUT ANY WARRANTY.
 #include "Renderer.h"
 #include "SceneMgr.h"
 
-Renderer *g_Renderer = NULL;
 SceneMgr *g_SceneMgr = NULL;
+DWORD elapsedtime;
+DWORD nowtime;
 
 void RenderScene(void)
 {
+	nowtime = timeGetTime();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
 
-	for (int i = 0; i < 50; i++)
-	{
-		g_Renderer->DrawSolidRect(g_SceneMgr->m_objects[i]->GetPositionX(), g_SceneMgr->m_objects[i]->GetPositionY(), g_SceneMgr->m_objects[i]->GetPositionZ(), g_SceneMgr->m_objects[i]->GetSize(), g_SceneMgr->m_objects[i]->GetColorRed(), g_SceneMgr->m_objects[i]->GetColorGreen(), g_SceneMgr->m_objects[i]->GetColorBlue(), 1);
-	}
-	// Renderer Test
-	//g_Renderer->DrawSolidRect(Test.GetPositionX(), Test.GetPositionY(), Test.GetPositionZ(), Test.GetSize(), Test.GetColorRed(), Test.GetColorGreen(), Test.GetColorBlue(),1);
-
+	g_SceneMgr->Render();
+	elapsedtime = timeGetTime() - nowtime;
 	glutSwapBuffers();
 }
 
 void Idle(void)
 {
-	g_SceneMgr->SceneUpdate();
+	g_SceneMgr->SceneUpdate(elapsedtime);
 	RenderScene();
 }
 
@@ -74,19 +71,14 @@ int main(int argc, char **argv)
 		std::cout << "GLEW 3.0 not supported\n ";
 	}
 
-	// Initialize Renderer
-	g_Renderer = new Renderer(500, 500);
+	// Initialize
 	//
 	if (g_SceneMgr == NULL)
 	{
-		g_SceneMgr = new SceneMgr();
+		g_SceneMgr = new SceneMgr(500,500);
 		g_SceneMgr->Init();
 	}
 	//
-	if (!g_Renderer->IsInitialized())
-	{
-		std::cout << "Renderer could not be initialized.. \n";
-	}
 
 	glutDisplayFunc(RenderScene);
 	glutIdleFunc(Idle);
@@ -96,7 +88,6 @@ int main(int argc, char **argv)
 
 	glutMainLoop();
 
-	delete g_Renderer;
 	delete g_SceneMgr;
 
     return 0;
