@@ -33,12 +33,13 @@ void RenderScene(void)
 
 void Idle(void)
 {
-	g_SceneMgr->SceneUpdate(elapsedtime);
+	g_SceneMgr->Update(elapsedtime);
 	RenderScene();
 }
 
 void MouseInput(int button, int state, int x, int y)
 {	
+	g_SceneMgr->MouseInput(button, state, x, y);
 	RenderScene();
 }
 
@@ -72,10 +73,9 @@ int main(int argc, char **argv)
 	}
 
 	// Initialize
-	//
 	if (g_SceneMgr == NULL)
 	{
-		g_SceneMgr = new SceneMgr(500,500);
+		g_SceneMgr = new SceneMgr;
 		g_SceneMgr->Init();
 	}
 	//

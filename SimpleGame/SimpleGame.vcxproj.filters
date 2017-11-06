@@ -19,6 +19,18 @@
     <Filter Include="소스 파일\Source">
       <UniqueIdentifier>{4229805b-62a9-48d7-aa6e-995937aedc12}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Source\Object">
+      <UniqueIdentifier>{04993134-ec24-45d4-abf6-de7b5b6ddbbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Source\Object\Buliding">
+      <UniqueIdentifier>{9fbe07bb-0e5a-4ed6-98bf-a27c156b8686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Source\Object\Character">
+      <UniqueIdentifier>{14ca8bec-a57b-4d78-a9f3-8d4475108a90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Source\Object\Bullet">
+      <UniqueIdentifier>{50d9964e-82c2-4a06-9e9c-16cb13e0a1b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -37,7 +49,13 @@
       <Filter>소스 파일\Source</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>소스 파일\Source</Filter>
+      <Filter>소스 파일\Source\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>소스 파일\Source\Object\Buliding</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>소스 파일\Source\Object\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +72,13 @@
       <Filter>소스 파일\Source</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>소스 파일\Source</Filter>
+      <Filter>소스 파일\Source\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>소스 파일\Source\Object\Buliding</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>소스 파일\Source\Object\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
