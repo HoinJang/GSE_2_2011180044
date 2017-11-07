@@ -1,6 +1,8 @@
 #pragma once
 #include "Object.h"
 #include "Renderer.h"
+#include "Bullet.h"
+#include "Character.h"
 #include <iostream>
 
 class Building : public Object

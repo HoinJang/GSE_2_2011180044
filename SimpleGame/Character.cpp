@@ -32,9 +32,9 @@ void Character::Render(Renderer * renderer)
 
 void Character::Update(DWORD time)
 {
-	float sce = (float)time / 1000.0;
-	Position.x += Direction.x * Speed * sce;
-	Position.y += Direction.y * Speed * sce;
+	float s = (float)time / 1000.0f;
+	Position.x += Direction.x * Speed * s;
+	Position.y += Direction.y * Speed * s;
 
 	if (Position.x <= -250 + Size / 2 || Position.x >= 250 - Size / 2)
 		Direction.x = Direction.x * -1;

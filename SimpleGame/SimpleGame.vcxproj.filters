@@ -57,6 +57,9 @@
     <ClInclude Include="Character.h">
       <Filter>소스 파일\Source\Object\Character</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>소스 파일\Source\Object\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>소스 파일\Source\Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>소스 파일\Source\Object\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

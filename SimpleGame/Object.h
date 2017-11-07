@@ -53,6 +53,7 @@ public:
 	void setColor(const float r, const float g, const float b);
 	void setDirection(const float Vx, const float Vy, const float Vz);
 	void setSpeed(const float speed);
+	void Collision_Life(float num);
 	//
 public:
 	virtual void Render(Renderer* renderer) =0;

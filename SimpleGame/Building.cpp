@@ -12,6 +12,7 @@ Building::Building(const float x, const float y, const float z, const int type) 
 	Color.g = 1.0f;
 	Color.b = 0.0f;
 	Color.a = 1.0f;
+
 }
 
 Building::~Building()
@@ -25,5 +26,4 @@ void Building::Render(Renderer * renderer)
 
 void Building::Update(DWORD time)
 {
-	LifeTime -= 1.0f;
 }

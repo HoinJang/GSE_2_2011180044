@@ -40,3 +40,8 @@ void Object::setSpeed(const float speed)
 {
 	this->Speed = speed;
 }
+
+void Object::Collision_Life(float num)
+{
+	Life -= num;
+}
