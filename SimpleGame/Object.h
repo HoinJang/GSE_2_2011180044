@@ -28,14 +28,18 @@ protected:
 	int Type;
 	float Size;
 	float Speed;
+	
 	ObjectC Color;
 	MyVector Position;
 	MyVector Direction;
+
 	float Life;
 	float LifeTime;
+
+	Object* ParentNode;
 public:
 	Object();
-	Object(const float x, const float y, const float z, const int type);
+	Object(const float x, const float y, const int type);
 	virtual ~Object();
 	int const GetType() { return Type; }
 	float const GetSize() { return Size; }
@@ -44,17 +48,17 @@ public:
 	float const GetColorBlue() { return Color.b; }
 	float const GetPositionX() { return Position.x; }
 	float const GetPositionY() { return Position.y; }
-	float const GetPositionZ() { return Position.z; }
 	float const GetLife() { return Life; }
 	float const GetLifeTime() { return LifeTime; }
+	Object* const GetParentNode() { return ParentNode; }
 	void setType(const int type) { this->Type = type; }
 	void setSize(const float size) { this->Size = size; }
-	void setPosition(const float x, const float y, const float z);
+	void setParentNode(Object* Node) { this->ParentNode = Node; }
+	void setPosition(const float x, const float y);
 	void setColor(const float r, const float g, const float b);
-	void setDirection(const float Vx, const float Vy, const float Vz);
+	void setDirection(const float Vx, const float Vy);
 	void setSpeed(const float speed);
 	void Collision_Life(float num);
-	//
 public:
 	virtual void Render(Renderer* renderer) =0;
 	virtual void Update(DWORD time) =0 ;

@@ -7,7 +7,7 @@ class Bullet : public Object
 {
 public:
 	Bullet() {}
-	Bullet(const float x, const float y, const float z, const int type);
+	Bullet(const float x, const float y, const int type);
 	~Bullet();
 public:
 	void Render(Renderer* renderer);

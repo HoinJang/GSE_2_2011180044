@@ -1,26 +1,28 @@
 #pragma once
-
 #include <cstdlib>
 #include <ctime>
 #include <windows.h>
-
+//
 #include "Dependencies\glew.h"
 #include "Dependencies\freeglut.h"
-
+//
 #include "Object.h"
 #include "Renderer.h"
-
+#include "LoadPng.h"
+//
 #include "Building.h"
 #include "Character.h"
-#define MAX_OBJECTS_COUNT 100
+#include "Bullet.h"
+#include "Arrow.h"
+//
+#define MAX_OBJECTS_COUNT 200
+//
 
 class SceneMgr
 {
-public:
+private:
 	Object *m_objects[MAX_OBJECTS_COUNT];
 	Renderer *m_renderer;
-	int Character_num;
-	float CreateBulletTimer;
 public:
 	SceneMgr();
 	~SceneMgr();
@@ -33,4 +35,6 @@ private:
 	bool CollisionCheck(float x1, float y1, float x2, float y2, float size1, float size2);
 	void LifeAndLifeTimeCheck();
 	void CollisionObjectCheck();
+	void CreateBulletArrow(DWORD time);
+	void AddObject(float x, float y, Type ObjectType, Object* Parent);
 };

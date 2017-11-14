@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Building.h"
 
-Building::Building(const float x, const float y, const float z, const int type) : Object(x, y, z, type)
+Building::Building(const float x, const float y, const int type) : Object(x, y, type)
 {
 	Size = 50;
 	Speed = 0.0f;
@@ -13,17 +13,31 @@ Building::Building(const float x, const float y, const float z, const int type) 
 	Color.b = 0.0f;
 	Color.a = 1.0f;
 
+	ParentNode = NULL;
+	BulletTimer = 0.0f;
 }
 
 Building::~Building()
 {
 }
 
-void Building::Render(Renderer * renderer)
+bool Building::CreateBullet(DWORD time)
 {
-	renderer->DrawSolidRect(Position.x, Position.y, Position.z, Size, Color.r, Color.g, Color.b, Color.a);
+	float sec = time / 1000.0f;
+	BulletTimer += sec;
+	if (BulletTimer > 0.5f)
+	{
+		BulletTimer = 0.0f;
+		return true;
+	}
+	return false;
 }
 
+void Building::Render(Renderer * renderer)
+{
+	renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a);
+}
 void Building::Update(DWORD time)
 {
 }
+

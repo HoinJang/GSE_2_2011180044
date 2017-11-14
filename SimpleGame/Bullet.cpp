@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Bullet.h"
 
-Bullet::Bullet(const float x, const float y, const float z, const int type) : Object(x, y, z, type)
+Bullet::Bullet(const float x, const float y, const int type) : Object(x, y, type)
 {
 	Size = 2;
 	Speed = 600.0f;
@@ -19,7 +19,8 @@ Bullet::Bullet(const float x, const float y, const float z, const int type) : Ob
 		Direction.x = 1;
 	if (Direction.y == 0)
 		Direction.y = -1;
-	Direction.z = 0.0f;
+	
+	ParentNode = NULL;
 }
 
 Bullet::~Bullet()
@@ -28,10 +29,7 @@ Bullet::~Bullet()
 
 void Bullet::Render(Renderer * renderer)
 {
-	if (Life > 0)
-	{
-		renderer->DrawSolidRect(Position.x, Position.y, Position.z, Size, Color.r, Color.g, Color.b, Color.a);
-	}
+	renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a);
 }
 
 void Bullet::Update(DWORD time)
@@ -42,7 +40,7 @@ void Bullet::Update(DWORD time)
 	Position.y += Direction.y * Speed * s;
 
 	if (Position.x <= -250 + Size / 2 || Position.x >= 250 - Size / 2)
-		Life = 0;
+		Direction.x = Direction.x * -1;
 	if (Position.y <= -250 + Size / 2 || Position.y >= 250 - Size / 2)
-		Life = 0;
+		Direction.y = Direction.y * -1;
 }

@@ -31,6 +31,9 @@
     <Filter Include="소스 파일\Source\Object\Bullet">
       <UniqueIdentifier>{50d9964e-82c2-4a06-9e9c-16cb13e0a1b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Source\Object\Arrow">
+      <UniqueIdentifier>{f532cf77-d922-4fc0-b8d6-f58871de971c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -60,6 +63,12 @@
     <ClInclude Include="Bullet.h">
       <Filter>소스 파일\Source\Object\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="LoadPng.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>소스 파일\Source\Object\Arrow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,6 +94,12 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>소스 파일\Source\Object\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadPng.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>소스 파일\Source\Object\Arrow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
