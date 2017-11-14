@@ -6,6 +6,8 @@ SceneMgr::SceneMgr()
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 		m_objects[i] = NULL;
 	m_renderer = NULL;
+
+	//b_texture = m_renderer->CreatePngTexture("./Resources/Building.png");
 }
 SceneMgr::~SceneMgr()
 {
@@ -41,7 +43,6 @@ void SceneMgr::Destory()
 }
 void SceneMgr::Render()
 {
-	//GLuint m_texture = m_renderer->CreatePngTexture("./Resources/Building.png");
 
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 	{
@@ -49,7 +50,7 @@ void SceneMgr::Render()
 		{
 			/*if (m_objects[i]->GetType() == BUILDING)
 			{
-				m_renderer->DrawTexturedRect(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), 0.0, m_objects[i]->GetSize(), m_objects[i]->GetColorRed(), m_objects[i]->GetColorGreen(), m_objects[i]->GetColorBlue(), 0.0, m_texture);
+				m_renderer->DrawTexturedRect(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), 0.0, m_objects[i]->GetSize(), m_objects[i]->GetColorRed(), m_objects[i]->GetColorGreen(), m_objects[i]->GetColorBlue(), 0.0, b_texture);
 			}
 			else*/
 			{
@@ -69,6 +70,7 @@ void SceneMgr::Update(DWORD time)
 	}
 	CollisionObjectCheck();
 	LifeAndLifeTimeCheck();
+	DeleteBulletArrow();
 }
 void SceneMgr::MouseInput(int button, int state, int x, int y)
 {
@@ -189,6 +191,30 @@ void SceneMgr::AddObject(float x, float y, Type ObjectType, Object* Parent)
 			m_objects[i] = new Arrow(x, y, ObjectType);
 			m_objects[i]->setParentNode(Parent);
 			break;
+		}
+	}
+}
+void SceneMgr::DeleteBulletArrow()
+{
+	for (int i = 0; i < MAX_OBJECTS_COUNT; i++)
+	{
+		if (m_objects[i] == NULL)
+			continue;
+		if (m_objects[i]->GetType() == ARROW)
+		{
+			if (((Arrow*)m_objects[i])->GetErase())
+			{
+				delete m_objects[i];
+				m_objects[i] = NULL;
+			}
+		}
+		else if (m_objects[i]->GetType() == BULLET)
+		{
+			if (((Bullet*)m_objects[i])->GetErase())
+			{
+				delete m_objects[i];
+				m_objects[i] = NULL;
+			}
 		}
 	}
 }

@@ -6,7 +6,7 @@ Building::Building(const float x, const float y, const int type) : Object(x, y, 
 	Size = 50;
 	Speed = 0.0f;
 	LifeTime = 10000.0f;
-	Life = 500.0f;
+	Life = 500.0;
 
 	Color.r = 1.0f;
 	Color.g = 1.0f;
@@ -39,5 +39,6 @@ void Building::Render(Renderer * renderer)
 }
 void Building::Update(DWORD time)
 {
+	LifeTime -= 0.1f;
 }
 

@@ -4,18 +4,15 @@
 Character::Character(const float x, const float y, const int type) : Object(x, y, type)
 {
 	Size = 10;
-	Speed = 300.0;
+	Speed = 300.0f;
 	LifeTime = 10000.0f;
 	Life = 10.0;
 
 
-	Direction.x = (float)(rand() % 3 - 1);
-	Direction.y = (float)(rand() % 3 - 1);
-	if (Direction.x == 0)
-		Direction.x = 1;
-	if (Direction.y == 0)
-		Direction.y = -1;
-
+	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	// 교수님 코드 참고
+	// printf("%f, %f \n", Direction.x, Direction.y);
 	Color.r = 1.0f;
 	Color.g = 1.0f;
 	Color.b = 1.0f;
@@ -49,11 +46,13 @@ void Character::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
 
-	Position.x += Direction.x * Speed * s;
-	Position.y += Direction.y * Speed * s;
+	Position.x += Direction.x * Speed * s * 3;
+	Position.y += Direction.y * Speed * s * 3;
 
 	if (Position.x <= -250 + Size / 2 || Position.x >= 250 - Size / 2)
 		Direction.x = Direction.x * -1;
 	if (Position.y <= -250 + Size / 2 || Position.y >= 250 - Size / 2)
 		Direction.y = Direction.y * -1;
+
+	LifeTime -= 0.1f;
 }

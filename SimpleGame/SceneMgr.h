@@ -23,6 +23,7 @@ class SceneMgr
 private:
 	Object *m_objects[MAX_OBJECTS_COUNT];
 	Renderer *m_renderer;
+	GLuint b_texture;
 public:
 	SceneMgr();
 	~SceneMgr();
@@ -37,4 +38,5 @@ private:
 	void CollisionObjectCheck();
 	void CreateBulletArrow(DWORD time);
 	void AddObject(float x, float y, Type ObjectType, Object* Parent);
+	void DeleteBulletArrow();
 };

@@ -13,14 +13,13 @@ Bullet::Bullet(const float x, const float y, const int type) : Object(x, y, type
 	Color.b = 0.0f;
 	Color.a = 1.0f;
 
-	Direction.x = (float)(rand() % 3 - 1);
-	Direction.y = (float)(rand() % 3 - 1);
-	if (Direction.x == 0)
-		Direction.x = 1;
-	if (Direction.y == 0)
-		Direction.y = -1;
+	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	// 교수님 코드 참고
+	// printf("%f, %f \n", Direction.x, Direction.y);
 	
 	ParentNode = NULL;
+	erase_bullet = false;
 }
 
 Bullet::~Bullet()
@@ -36,11 +35,13 @@ void Bullet::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
 
-	Position.x += Direction.x * Speed * s;
-	Position.y += Direction.y * Speed * s;
+	Position.x += Direction.x * Speed * s * 3;;
+	Position.y += Direction.y * Speed * s * 3;;
 
 	if (Position.x <= -250 + Size / 2 || Position.x >= 250 - Size / 2)
-		Direction.x = Direction.x * -1;
+		erase_bullet = true;
 	if (Position.y <= -250 + Size / 2 || Position.y >= 250 - Size / 2)
-		Direction.y = Direction.y * -1;
+		erase_bullet = true;
+
+	LifeTime -= 0.1f;
 }
