@@ -6,8 +6,6 @@ SceneMgr::SceneMgr()
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 		m_objects[i] = NULL;
 	m_renderer = NULL;
-
-	//b_texture = m_renderer->CreatePngTexture("./Resources/Building.png");
 }
 SceneMgr::~SceneMgr()
 {
@@ -22,13 +20,21 @@ SceneMgr::~SceneMgr()
 }
 void SceneMgr::Init()
 {
-	m_renderer = new Renderer(500, 500);
+	m_renderer = new Renderer(WindowWidth, WindowHeight);
 	if (!m_renderer->IsInitialized())
 	{
 		std::cout << "Renderer could not be initialized.. \n";
 	}
-	AddObject(0, 0, BUILDING, NULL);
+	RedCharacterTimer = 0.0f;
+	BlueCharacterTimer = 0.0f;
+	CreateBlueCharacter = false;
+	AddObject(0, WindowHeight/2 - 100, BUILDING, NULL, Red);
+	AddObject(-200, WindowHeight / 2 - 150, BUILDING, NULL, Red);
+	AddObject(200, WindowHeight / 2 - 150, BUILDING, NULL, Red);
 
+	AddObject(0, -WindowHeight / 2 + 100, BUILDING, NULL, Blue);
+	AddObject(-200, -WindowHeight / 2 + 150, BUILDING, NULL, Blue);
+	AddObject(200, -WindowHeight / 2 + 150, BUILDING, NULL, Blue);
 }
 void SceneMgr::Destory() 
 {
@@ -48,21 +54,15 @@ void SceneMgr::Render()
 	{
 		if (m_objects[i] != NULL)
 		{
-			/*if (m_objects[i]->GetType() == BUILDING)
-			{
-				m_renderer->DrawTexturedRect(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), 0.0, m_objects[i]->GetSize(), m_objects[i]->GetColorRed(), m_objects[i]->GetColorGreen(), m_objects[i]->GetColorBlue(), 0.0, b_texture);
-			}
-			else*/
-			{
-				m_objects[i]->Render(m_renderer);
-			}
+			m_objects[i]->Render(m_renderer);
 		}
 	}
 }
 void SceneMgr::Update(DWORD time)
 {
 	CreateBulletArrow(time);
-
+	CreateCharacterRed(time);
+	CreateCharacterBlue(time);
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 	{
 		if (m_objects[i] != NULL)
@@ -78,7 +78,12 @@ void SceneMgr::MouseInput(int button, int state, int x, int y)
 	{
 		if (state == GLUT_UP)
 		{
-			AddObject((float)(x - 250), (float)(250 - y), CHARACTER, NULL);
+			if ((y > WindowHeight / 2) && CreateBlueCharacter)
+			{
+				AddObject((float)(x - (WindowWidth / 2)), (float)((WindowHeight / 2)-y), CHARACTER, NULL, Blue);
+				BlueCharacterTimer = 0.0f;
+				CreateBlueCharacter = false;
+			}
 		}
 	}
 }
@@ -116,9 +121,12 @@ void SceneMgr::CollisionObjectCheck()
 		{
 			if ((m_objects[i] == NULL) || m_objects[j] == NULL) continue;
 			if (i == j) continue;
+			if (m_objects[i]->GetTeamFlag() == m_objects[j]->GetTeamFlag()) continue;
 			if (CollisionCheck(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), m_objects[j]->GetPositionX(), m_objects[j]->GetPositionY(), m_objects[i]->GetSize(), m_objects[j]->GetSize()))
 			{
-				if ((m_objects[i]->GetType() == BUILDING) && ((m_objects[j]->GetType() == CHARACTER )||(m_objects[j]->GetType() == ARROW)))
+				if ((m_objects[i]->GetType() == BUILDING) && ((m_objects[j]->GetType() == CHARACTER )
+					//||(m_objects[j]->GetType() == ARROW)
+					))
 				{
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
 					m_objects[j]->Collision_Life(m_objects[i]->GetLife());
@@ -151,19 +159,19 @@ void SceneMgr::CreateBulletArrow(DWORD time)
 		{
 			if (((Building*)m_objects[i])->CreateBullet(time))
 			{
-				AddObject(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), BULLET, m_objects[i]);
+				AddObject(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), BULLET, m_objects[i],m_objects[i]->GetTeamFlag());
 			}
 		}
 		else if (m_objects[i]->GetType() == CHARACTER)
 		{
 			if (((Character*)m_objects[i])->CreateArrow(time))
 			{
-				AddObject(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), ARROW, m_objects[i]);
+				AddObject(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), ARROW, m_objects[i], m_objects[i]->GetTeamFlag());
 			}
 		}
 	}
 }
-void SceneMgr::AddObject(float x, float y, Type ObjectType, Object* Parent)
+void SceneMgr::AddObject(float x, float y, Type ObjectType, Object* Parent, Team flag)
 {
 
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
@@ -172,23 +180,23 @@ void SceneMgr::AddObject(float x, float y, Type ObjectType, Object* Parent)
 			continue;
 		if (ObjectType == BUILDING)
 		{
-			m_objects[i] = new Building(x, y, ObjectType);
+			m_objects[i] = new Building(x, y, ObjectType, flag);
 			break;
 		}
 		else if (ObjectType == CHARACTER)
 		{
-			m_objects[i] = new Character(x, y, ObjectType);
+			m_objects[i] = new Character(x, y, ObjectType, flag);
 			break;
 		}
 		else if (ObjectType == BULLET)
 		{
-			m_objects[i] = new Bullet(x, y, ObjectType);
+			m_objects[i] = new Bullet(x, y, ObjectType, flag);
 			m_objects[i]->setParentNode(Parent);
 			break;
 		}
 		else if (ObjectType == ARROW)
 		{
-			m_objects[i] = new Arrow(x, y, ObjectType);
+			m_objects[i] = new Arrow(x, y, ObjectType, flag);
 			m_objects[i]->setParentNode(Parent);
 			break;
 		}
@@ -216,5 +224,24 @@ void SceneMgr::DeleteBulletArrow()
 				m_objects[i] = NULL;
 			}
 		}
+	}
+}
+void SceneMgr::CreateCharacterRed(DWORD time)
+{
+	float sec = time / 1000.0f;
+	RedCharacterTimer += sec;
+	if (RedCharacterTimer >= 5.0f)
+	{
+		AddObject((float)((rand() % WindowWidth) - 200), (float)(rand() % (WindowHeight/2) ), CHARACTER, NULL, Red);
+		RedCharacterTimer = 0.0f;
+	}
+}
+void SceneMgr::CreateCharacterBlue(DWORD time)
+{
+	float sec = time / 1000.0f;
+	BlueCharacterTimer += sec;
+	if (BlueCharacterTimer >= 7.0f)
+	{
+		CreateBlueCharacter = true;
 	}
 }

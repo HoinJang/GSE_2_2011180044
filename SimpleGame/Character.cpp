@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Character.h"
 
-Character::Character(const float x, const float y, const int type) : Object(x, y, type)
+Character::Character(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
 	Size = 10;
 	Speed = 300.0f;
@@ -13,11 +13,21 @@ Character::Character(const float x, const float y, const int type) : Object(x, y
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	// 교수님 코드 참고
 	// printf("%f, %f \n", Direction.x, Direction.y);
-	Color.r = 1.0f;
-	Color.g = 1.0f;
-	Color.b = 1.0f;
-	Color.a = 1.0f;
 
+	if (Teamflag == Red)
+	{
+		Color.r = 1.0f;
+		Color.g = 0.0f;
+		Color.b = 0.0f;
+		Color.a = 1.0f;
+	}
+	else
+	{
+		Color.r = 0.0f;
+		Color.g = 0.0f;
+		Color.b = 1.0f;
+		Color.a = 1.0f;
+	}
 	ParentNode = NULL;
 }
 
@@ -29,7 +39,7 @@ bool Character::CreateArrow(DWORD time)
 {
 	float sec = time / 1000.0f;
 	ArrowTimer += sec;
-	if (ArrowTimer > 0.5f)
+	if (ArrowTimer > 3.0f)
 	{
 		ArrowTimer = 0.0f;
 		return true;
@@ -49,9 +59,9 @@ void Character::Update(DWORD time)
 	Position.x += Direction.x * Speed * s * 3;
 	Position.y += Direction.y * Speed * s * 3;
 
-	if (Position.x <= -250 + Size / 2 || Position.x >= 250 - Size / 2)
+	if (Position.x <= -WindowWidth/2 + Size / 2 || Position.x >= WindowWidth/2 - Size / 2)
 		Direction.x = Direction.x * -1;
-	if (Position.y <= -250 + Size / 2 || Position.y >= 250 - Size / 2)
+	if (Position.y <= -WindowHeight/2 + Size / 2 || Position.y >= WindowHeight/2 - Size / 2)
 		Direction.y = Direction.y * -1;
 
 	LifeTime -= 0.1f;

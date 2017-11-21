@@ -157,6 +157,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="LoadPng.h" />
+    <ClInclude Include="Mydefine.h" />
     <ClInclude Include="MyVector.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />

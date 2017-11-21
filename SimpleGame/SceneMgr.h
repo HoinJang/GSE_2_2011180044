@@ -9,6 +9,7 @@
 #include "Object.h"
 #include "Renderer.h"
 #include "LoadPng.h"
+#include "Mydefine.h"
 //
 #include "Building.h"
 #include "Character.h"
@@ -23,7 +24,9 @@ class SceneMgr
 private:
 	Object *m_objects[MAX_OBJECTS_COUNT];
 	Renderer *m_renderer;
-	GLuint b_texture;
+	float RedCharacterTimer;
+	float BlueCharacterTimer;
+	bool CreateBlueCharacter;
 public:
 	SceneMgr();
 	~SceneMgr();
@@ -37,6 +40,8 @@ private:
 	void LifeAndLifeTimeCheck();
 	void CollisionObjectCheck();
 	void CreateBulletArrow(DWORD time);
-	void AddObject(float x, float y, Type ObjectType, Object* Parent);
+	void AddObject(float x, float y, Type ObjectType, Object* Parent, Team flag);
 	void DeleteBulletArrow();
+	void CreateCharacterRed(DWORD time);
+	void CreateCharacterBlue(DWORD time);
 };
