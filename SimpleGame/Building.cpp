@@ -6,7 +6,7 @@ Building::Building(const float x, const float y, const int type, Team flag) : Ob
 	Size = 100;
 	Speed = 0.0f;
 	LifeTime = 100000.0f;
-	Life = 500.0;
+	Life = 400.0;
 
 	Color.r = 1.0f;
 	Color.g = 1.0f;
@@ -26,7 +26,7 @@ bool Building::CreateBullet(DWORD time)
 {
 	float sec = time / 1000.0f;
 	BulletTimer += sec;
-	if (BulletTimer > 1.0f)
+	if (BulletTimer > BULLETTIMER)
 	{
 		BulletTimer = 0.0f;
 		return true;

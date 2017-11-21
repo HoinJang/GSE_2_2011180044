@@ -25,8 +25,8 @@ void SceneMgr::Init()
 	{
 		std::cout << "Renderer could not be initialized.. \n";
 	}
-	RedCharacterTimer = 0.0f;
-	BlueCharacterTimer = 0.0f;
+	RedCharacterTimer = 5.0;
+	BlueCharacterTimer = 7.0f;
 	CreateBlueCharacter = false;
 	AddObject(0, WindowHeight/2 - 100, BUILDING, NULL, Red);
 	AddObject(-200, WindowHeight / 2 - 150, BUILDING, NULL, Red);
@@ -129,21 +129,20 @@ void SceneMgr::CollisionObjectCheck()
 					))
 				{
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					m_objects[j]->Collision_Life(m_objects[i]->GetLife());
-				}
-				else if ((m_objects[i]->GetType() == CHARACTER) && (m_objects[j]->GetType() == BULLET))
-				{
-					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
 					delete m_objects[j];
 					m_objects[j] = NULL;
 				}
+				else if ((m_objects[i]->GetType() == CHARACTER) && (m_objects[j]->GetType() == BULLET))
+				{
+					m_objects[j]->Collision_Life(m_objects[i]->GetLife());
+					delete m_objects[i];
+					m_objects[i] = NULL;
+				}
 				else if ((m_objects[i]->GetType() == CHARACTER) && (m_objects[j]->GetType() == ARROW))
 				{
-					if (m_objects[j]->GetParentNode() != m_objects[i])
-					{
-						m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-						m_objects[j]->Collision_Life(m_objects[i]->GetLife());
-					}
+					m_objects[j]->Collision_Life(m_objects[i]->GetLife());
+					delete m_objects[i];
+					m_objects[i] = NULL;
 				}
 			}
 		}

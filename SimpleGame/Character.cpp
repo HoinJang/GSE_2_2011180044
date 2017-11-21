@@ -13,6 +13,7 @@ Character::Character(const float x, const float y, const int type, Team flag) : 
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	// 교수님 코드 참고
 	// printf("%f, %f \n", Direction.x, Direction.y);
+	Direction.Nomalize();
 
 	if (Teamflag == Red)
 	{
@@ -39,7 +40,7 @@ bool Character::CreateArrow(DWORD time)
 {
 	float sec = time / 1000.0f;
 	ArrowTimer += sec;
-	if (ArrowTimer > 3.0f)
+	if (ArrowTimer > ARROWTIMER)
 	{
 		ArrowTimer = 0.0f;
 		return true;
@@ -56,8 +57,8 @@ void Character::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
 
-	Position.x += Direction.x * Speed * s * 3;
-	Position.y += Direction.y * Speed * s * 3;
+	Position.x += Direction.x * Speed * s ;
+	Position.y += Direction.y * Speed * s ;
 
 	if (Position.x <= -WindowWidth/2 + Size / 2 || Position.x >= WindowWidth/2 - Size / 2)
 		Direction.x = Direction.x * -1;

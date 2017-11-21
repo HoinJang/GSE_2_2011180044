@@ -26,4 +26,13 @@ public:
 		y -= m.y;
 		return *this;
 	}
+	void Nomalize()
+	{
+		this->x = x / Size();
+		this->y = y / Size();
+	}
+	float Size()
+	{
+		return sqrt(x*x + y*y);
+	}
 };

@@ -3,7 +3,7 @@
 
 Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
-	Size = 2;
+	Size = ARROWBULLETSIZE;
 	Speed = 600.0f;
 	LifeTime = 10000.0f;
 	Life = 20.0f;
@@ -11,6 +11,7 @@ Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object
 
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+
 	// 교수님 코드 참고
 	if (flag == Red)
 	{
@@ -18,6 +19,10 @@ Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object
 		Color.g = 0.0f;
 		Color.b = 0.0f;
 		Color.a = 1.0f;
+		if (Direction.y > 0)
+		{
+			Direction.y *= -1;
+		}
 	}
 	else
 	{
@@ -25,8 +30,12 @@ Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object
 		Color.g = 0.0f;
 		Color.b = 1.0f;
 		Color.a = 1.0f;
+		if (Direction.y < 0)
+		{
+			Direction.y *= -1;
+		}
 	}
-
+	Direction.Nomalize();
 	ParentNode = NULL;
 	erase_bullet = false;
 }
@@ -44,8 +53,8 @@ void Bullet::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
 
-	Position.x += Direction.x * Speed * s * 3;;
-	Position.y += Direction.y * Speed * s * 3;;
+	Position.x += Direction.x * Speed * s ;
+	Position.y += Direction.y * Speed * s ;
 
 	if (Position.x <= -WindowWidth / 2 + Size / 2 || Position.x >= WindowWidth / 2 - Size / 2)
 		erase_bullet = true;

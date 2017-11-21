@@ -3,10 +3,13 @@
 
 Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
-	Size = 2;
+	Size = ARROWBULLETSIZE;
 	Speed = 100.0f;
 	LifeTime = 10000.0f;
 	Life = 10.0f;
+
+	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 
 	if (flag == Red)
 	{
@@ -14,6 +17,10 @@ Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x
 		Color.g = 0.2f;
 		Color.b = 0.7f;
 		Color.a = 1.0f;
+		if (Direction.y > 0)
+		{
+			Direction.y *= -1;
+		}
 	}
 	else
 	{
@@ -21,10 +28,14 @@ Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x
 		Color.g = 1.0f;
 		Color.b = 0.0f;
 		Color.a = 1.0f;
+		if (Direction.y < 0)
+		{
+			Direction.y *= -1;
+		}
 	}
-	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
-	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	// 교수님 코드 참고
+
+	Direction.Nomalize();
 
 	ParentNode = NULL;
 	erase_arrow = false;
@@ -43,8 +54,8 @@ void Arrow::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
 
-	Position.x += Direction.x * Speed * s * 3;
-	Position.y += Direction.y * Speed * s * 3;
+	Position.x += Direction.x * Speed * s ;
+	Position.y += Direction.y * Speed * s ;
 
 	if (Position.x <= -WindowWidth/2 + Size / 2 || Position.x >= WindowWidth/2 - Size / 2)
 		erase_arrow = true;
