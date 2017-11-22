@@ -6,7 +6,7 @@ Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x
 	Size = ARROWBULLETSIZE;
 	Speed = 100.0f;
 	LifeTime = 10000.0f;
-	Life = 10.0f;
+	Life = 50.0f;
 
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
@@ -47,7 +47,7 @@ Arrow::~Arrow()
 
 void Arrow::Render(Renderer * renderer)
 {
-	renderer->DrawSolidRect(Position.x, Position.y, 0, Size, Color.r, Color.g, Color.b, Color.a);
+	renderer->DrawSolidRect(Position.x, Position.y, 0, Size, Color.r, Color.g, Color.b, Color.a, LEVEL_BULLETARROW);
 }
 
 void Arrow::Update(DWORD time)

@@ -36,9 +36,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -66,10 +63,13 @@
     <ClInclude Include="Arrow.h">
       <Filter>소스 파일\Source\Object\Arrow</Filter>
     </ClInclude>
+    <ClInclude Include="MyVector.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Mydefine.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MyVector.h">
+    <ClInclude Include="stdafx.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

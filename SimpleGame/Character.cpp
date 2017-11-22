@@ -3,10 +3,10 @@
 
 Character::Character(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
-	Size = 10;
+	Size = 30.0f;
 	Speed = 300.0f;
 	LifeTime = 10000.0f;
-	Life = 10.0;
+	Life = 100.0f;
 
 
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
@@ -50,7 +50,14 @@ bool Character::CreateArrow(DWORD time)
 
 void Character::Render(Renderer * renderer)
 {
-	renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a);
+	renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a, LEVEL_UNDERGROUND);
+
+	if (Teamflag == Red)
+		renderer->DrawSolidRectGauge(Position.x, Position.y + Size , 0.0, Size , LIFEGAUGESIZE,
+			1.0f, 0.0f, 0.0f, 1.0f, Life / CHARACTERLIFE, LEVEL_GROUND);
+	else
+		renderer->DrawSolidRectGauge(Position.x, Position.y + Size, 0.0, Size , LIFEGAUGESIZE,
+			0.0f, 0.0f, 1.0f, 1.0f, Life / CHARACTERLIFE, LEVEL_GROUND);
 }
 
 void Character::Update(DWORD time)

@@ -124,9 +124,19 @@ void SceneMgr::CollisionObjectCheck()
 			if (m_objects[i]->GetTeamFlag() == m_objects[j]->GetTeamFlag()) continue;
 			if (CollisionCheck(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), m_objects[j]->GetPositionX(), m_objects[j]->GetPositionY(), m_objects[i]->GetSize(), m_objects[j]->GetSize()))
 			{
-				if ((m_objects[i]->GetType() == BUILDING) && ((m_objects[j]->GetType() == CHARACTER )
-					//||(m_objects[j]->GetType() == ARROW)
-					))
+				if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == CHARACTER ))
+				{
+					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
+					delete m_objects[j];
+					m_objects[j] = NULL;
+				}
+				else if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == BULLET))
+				{
+					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
+					delete m_objects[j];
+					m_objects[j] = NULL;
+				}
+				else if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == ARROW))
 				{
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
 					delete m_objects[j];
@@ -134,15 +144,15 @@ void SceneMgr::CollisionObjectCheck()
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER) && (m_objects[j]->GetType() == BULLET))
 				{
-					m_objects[j]->Collision_Life(m_objects[i]->GetLife());
-					delete m_objects[i];
-					m_objects[i] = NULL;
+					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
+					delete m_objects[j];
+					m_objects[j] = NULL;
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER) && (m_objects[j]->GetType() == ARROW))
 				{
-					m_objects[j]->Collision_Life(m_objects[i]->GetLife());
-					delete m_objects[i];
-					m_objects[i] = NULL;
+					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
+					delete m_objects[j];
+					m_objects[j] = NULL;
 				}
 			}
 		}
