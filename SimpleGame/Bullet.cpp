@@ -6,7 +6,7 @@ Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object
 	Size = ARROWBULLETSIZE;
 	Speed = 600.0f;
 	LifeTime = 10000.0f;
-	Life = 50.0f;
+	Life = 15.0f;
 
 
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
