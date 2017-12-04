@@ -50,10 +50,10 @@ void Building::Render(Renderer * renderer)
 	renderer->DrawTexturedRect(Position.x, Position.y, 0.0, Size, Color.r, Color.g, Color.b, Color.a, b_texture, LEVEL_GROUND);
 	if (Teamflag == Red)
 		renderer->DrawSolidRectGauge(Position.x, Position.y + Size / 2, 0.0, Size / 2, LIFEGAUGESIZE,
-			1.0f, 0.0f, 0.0f, 1.0f, Life / BUILDINGLIFE, LEVEL_GROUND);
+			1.0, 0.0, 0.0, 1.0, Life / BUILDINGLIFE, LEVEL_GROUND);
 	else
 		renderer->DrawSolidRectGauge(Position.x, Position.y + Size / 2, 0.0, Size / 2, LIFEGAUGESIZE,
-			0.0f, 0.0f, 1.0f, 1.0f, Life / BUILDINGLIFE, LEVEL_GROUND);
+			0.0, 0.0, 1.0, 1.0, Life / BUILDINGLIFE, LEVEL_GROUND);
 
 }
 void Building::Update(DWORD time)

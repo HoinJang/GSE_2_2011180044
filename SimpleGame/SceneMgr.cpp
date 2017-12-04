@@ -25,6 +25,7 @@ void SceneMgr::Init()
 	{
 		std::cout << "Renderer could not be initialized.. \n";
 	}
+	mBackGround = m_renderer->CreatePngTexture("./Resources/BackGround.png");
 	RedCharacterTimer = 5.0;
 	BlueCharacterTimer = 7.0f;
 	CreateBlueCharacter = false;
@@ -49,7 +50,7 @@ void SceneMgr::Destory()
 }
 void SceneMgr::Render()
 {
-
+	m_renderer->DrawTexturedRect(0.0, 0.0, 0.0, WindowHeight, 1.0, 1.0, 1.0, 1.0, mBackGround, LEVEL_BACKGROUND);
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 	{
 		if (m_objects[i] != NULL)

@@ -9,6 +9,8 @@ class Character : public Object
 private:
 	float ArrowTimer;
 	GLuint c_texture;
+	int spriteX;
+	int spriteTime;
 public:
 	Character() {}
 	Character(const float x, const float y, const int type, Team flag);

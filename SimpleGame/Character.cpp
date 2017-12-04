@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Character.h"
 
+
 Character::Character(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
 	Size = 30.0f;
@@ -19,6 +20,8 @@ Character::Character(const float x, const float y, const int type, Team flag) : 
 	ParentNode = NULL;
 
 	c_texture = 0;
+	spriteX = 0;
+	spriteTime = 0;
 }
 
 Character::~Character()
@@ -44,14 +47,14 @@ void Character::Render(Renderer * renderer)
 	{
 		if (Teamflag == Red)
 		{
-			c_texture = renderer->CreatePngTexture("./Resources/Character_Red.png");
+			c_texture = renderer->CreatePngTexture("./Resources/Red.png");
 		}
 		else
 		{
-			c_texture = renderer->CreatePngTexture("./Resources/Character_Blue.png");
+			c_texture = renderer->CreatePngTexture("./Resources/Blue.png");
 		}
 	}
-	renderer->DrawTexturedRect(Position.x, Position.y, 0.0, Size, Color.r, Color.g, Color.b, Color.a, c_texture, LEVEL_SKY);
+	renderer->DrawTexturedRectSeq(Position.x, Position.y, 0.0, Size + 20, Color.r, Color.g, Color.b, Color.a, c_texture, spriteX, 0,3,1, LEVEL_SKY);
 
 	if (Teamflag == Red)
 		renderer->DrawSolidRectGauge(Position.x, Position.y + Size , 0.0f, Size , LIFEGAUGESIZE,
@@ -65,6 +68,8 @@ void Character::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
 
+	spriteTime += 1;
+
 	Position.x += Direction.x * Speed * s ;
 	Position.y += Direction.y * Speed * s ;
 
@@ -74,4 +79,14 @@ void Character::Update(DWORD time)
 		Direction.y = Direction.y * -1;
 
 	LifeTime -= 0.1f;
+	
+	if (spriteTime > 200)
+	{
+		spriteX += 1;
+		spriteTime = 0;
+	}
+	if (spriteX == 2)
+	{
+		spriteX = 0;
+	}
 }

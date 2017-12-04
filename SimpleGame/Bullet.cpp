@@ -3,7 +3,7 @@
 
 Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
-	Size = ARROWBULLETSIZE;
+	Size = ARROWBULLETSIZE + 5;
 	Speed = 600.0f;
 	LifeTime = 10000.0f;
 	Life = 15.0f;
@@ -38,6 +38,9 @@ Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object
 	Direction.Nomalize();
 	ParentNode = NULL;
 	erase_bullet = false;
+
+	m_paticletime = 0.0;
+	m_texture = 0;
 }
 
 Bullet::~Bullet()
@@ -46,13 +49,18 @@ Bullet::~Bullet()
 
 void Bullet::Render(Renderer * renderer)
 {
-	renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a, LEVEL_BULLETARROW);
-	
+	if (m_texture == 0)
+	{
+		m_texture = renderer->CreatePngTexture("./Resources/Particle.png");
+	}
+	renderer->DrawParticle(Position.x, Position.y, 0.0f, Size, Color.r + 0.5, Color.g + 0.5, Color.b + 0.5, 1.0, -Direction.x, -Direction.y, m_texture, m_paticletime);
+	//renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a, LEVEL_BULLETARROW);
 }
 
 void Bullet::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
+	m_paticletime += s;
 
 	Position.x += Direction.x * Speed * s ;
 	Position.y += Direction.y * Speed * s ;

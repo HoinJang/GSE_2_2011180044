@@ -24,6 +24,7 @@ class SceneMgr
 private:
 	Object *m_objects[MAX_OBJECTS_COUNT];
 	Renderer *m_renderer;
+	GLuint mBackGround;
 	float RedCharacterTimer;
 	float BlueCharacterTimer;
 	bool CreateBlueCharacter;

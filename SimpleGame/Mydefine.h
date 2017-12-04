@@ -7,10 +7,11 @@
 
 #define ARROWBULLETSIZE 4 
 
-#define LEVEL_GOD 0
+#define LEVEL_GOD 0.0
 #define LEVEL_GROUND 0.1
 #define LEVEL_SKY 0.2
 #define LEVEL_BULLETARROW 0.3
+#define LEVEL_BACKGROUND 0.9
 
 #define LIFEGAUGESIZE 5
 #define BUILDINGLIFE 400.0
