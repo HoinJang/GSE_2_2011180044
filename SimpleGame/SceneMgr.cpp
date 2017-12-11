@@ -6,6 +6,7 @@ SceneMgr::SceneMgr()
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 		m_objects[i] = NULL;
 	m_renderer = NULL;
+	m_sound = NULL;
 }
 SceneMgr::~SceneMgr()
 {
@@ -20,6 +21,9 @@ SceneMgr::~SceneMgr()
 }
 void SceneMgr::Init()
 {
+	m_sound = new Sound();
+	mSound = m_sound->CreateSound("./Dependencies/SoundSamples/ophelia.mp3");
+	m_sound->PlaySoundW(mSound, true, 0.2f);
 	m_renderer = new Renderer(WindowWidth, WindowHeight);
 	if (!m_renderer->IsInitialized())
 	{

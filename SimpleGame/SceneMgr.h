@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include "LoadPng.h"
 #include "Mydefine.h"
+#include "Sound.h"
 //
 #include "Building.h"
 #include "Character.h"
@@ -24,6 +25,8 @@ class SceneMgr
 private:
 	Object *m_objects[MAX_OBJECTS_COUNT];
 	Renderer *m_renderer;
+	Sound *m_sound;
+	GLuint mSound;
 	GLuint mBackGround;
 	float RedCharacterTimer;
 	float BlueCharacterTimer;

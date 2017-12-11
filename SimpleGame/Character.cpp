@@ -62,6 +62,7 @@ void Character::Render(Renderer * renderer)
 	else
 		renderer->DrawSolidRectGauge(Position.x, Position.y + Size, 0.0f, Size , LIFEGAUGESIZE,
 			0.0f, 0.0f, 1.0f, 1.0f, Life / CHARACTERLIFE, LEVEL_GROUND);
+	renderer->DrawTextW(Position.x-Size/2, Position.y - Size, GLUT_BITMAP_HELVETICA_10, 0, 0, 0, "Character");
 }
 
 void Character::Update(DWORD time)

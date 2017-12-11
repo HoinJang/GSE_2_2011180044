@@ -34,6 +34,9 @@
     <Filter Include="소스 파일\Source\Object\Arrow">
       <UniqueIdentifier>{f532cf77-d922-4fc0-b8d6-f58871de971c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Sound">
+      <UniqueIdentifier>{441683d3-de55-46c2-8f38-159708910fb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="Building.h">
       <Filter>소스 파일\Source\Object\Buliding</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>소스 파일\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -103,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
       <Filter>소스 파일\Source\Object\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>소스 파일\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
