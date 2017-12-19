@@ -30,9 +30,13 @@ void SceneMgr::Init()
 		std::cout << "Renderer could not be initialized.. \n";
 	}
 	mBackGround = m_renderer->CreatePngTexture("./Resources/BackGround.png");
-	RedCharacterTimer = 5.0;
+	mParticleCloud = m_renderer->CreatePngTexture("./Resources/SnowTexture.png");
+
+	ClimateTimer = 0.0f;
+	RedCharacterTimer = 5.0f;
 	BlueCharacterTimer = 7.0f;
 	CreateBlueCharacter = false;
+
 	AddObject(0, WindowHeight/2 - 100, BUILDING, NULL, Red);
 	AddObject(-200, WindowHeight / 2 - 150, BUILDING, NULL, Red);
 	AddObject(200, WindowHeight / 2 - 150, BUILDING, NULL, Red);
@@ -62,9 +66,12 @@ void SceneMgr::Render()
 			m_objects[i]->Render(m_renderer);
 		}
 	}
+	m_renderer->DrawParticleClimate(0.0, 0.0, 0.0, 3, 1, 1, 1, 1, -0.1, -0.1, mParticleCloud, ClimateTimer, LEVEL_GOD);
 }
 void SceneMgr::Update(DWORD time)
 {
+	float s = (float)time / 1000.0f;
+	ClimateTimer += s;
 	CreateBulletArrow(time);
 	CreateCharacterRed(time);
 	CreateCharacterBlue(time);

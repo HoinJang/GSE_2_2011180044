@@ -53,7 +53,7 @@ void Bullet::Render(Renderer * renderer)
 	{
 		m_texture = renderer->CreatePngTexture("./Resources/Particle.png");
 	}
-	renderer->DrawParticle(Position.x, Position.y, 0.0f, Size, Color.r + 0.5, Color.g + 0.5, Color.b + 0.5, 1.0, -Direction.x, -Direction.y, m_texture, m_paticletime);
+	renderer->DrawParticle(Position.x, Position.y, 0.0f, Size, Color.r , Color.g + 0.5, Color.b , 1.0, -Direction.x, -Direction.y, m_texture, m_paticletime, LEVEL_BULLETARROW);
 	//renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a, LEVEL_BULLETARROW);
 }
 

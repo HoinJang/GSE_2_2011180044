@@ -28,9 +28,12 @@ private:
 	Sound *m_sound;
 	GLuint mSound;
 	GLuint mBackGround;
+	GLuint mParticleCloud;
 	float RedCharacterTimer;
 	float BlueCharacterTimer;
+	float ClimateTimer;
 	bool CreateBlueCharacter;
+	
 public:
 	SceneMgr();
 	~SceneMgr();
