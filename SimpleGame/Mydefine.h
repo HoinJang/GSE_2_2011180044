@@ -5,12 +5,12 @@
 #define GameFieldAdjust 50
 #define GameField 800
 
-#define MAX_OBJECTS_COUNT 200
+#define MAX_OBJECTS_COUNT 100
 
 #define ARROWTIMER 3.0f
 #define BULLETTIMER 3.0f
 
-#define ARROWBULLETSIZE 4 
+#define ARROWBULLETSIZE 20
 #define LIFEGAUGESIZE 5
 #define ElixirMax 10
 
@@ -24,13 +24,14 @@
 #define LEVEL_GROUND 0.5
 #define LEVEL_BACKGROUND 0.9
 
-//
-#define BUILDINGLIFE 400.0
+// 오브젝트들의 체력
+#define BUILDINGLIFE 800.0
 #define CHARACTERLIFE1 50.0
 #define CHARACTERLIFE2 200.0
-#define CHARACTERLIFE3 10.0
-#define ARROWLIFE 10.0
-#define BULLETLIFE 20.0
+#define CHARACTERLIFE3 50.0
+
+
+#define ARROWBULLETLIFE 50.0
 
 
 enum Type

@@ -6,7 +6,7 @@ Building::Building(const float x, const float y, const int type, Team flag) : Ob
 	Size = 100.0f;
 	Speed = 0.0f;
 	LifeTime = 100000.0f;
-	Life = 500.0f;
+	Life = BUILDINGLIFE;
 	ParentNode = NULL;
 	BulletTimer = 0.0f;
 
@@ -41,6 +41,5 @@ bool Building::CreateBullet(DWORD time)
 }
 void Building::Update(DWORD time)
 {
-	LifeTime -= 0.1f;
 }
 

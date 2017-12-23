@@ -4,9 +4,9 @@
 Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
 	Size = ARROWBULLETSIZE;
-	Speed = 100.0f;
+	Speed = 400.0f;
 	LifeTime = 10000.0f;
-	Life = 10.0f;
+	Life = ARROWBULLETLIFE;
 
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
@@ -54,6 +54,4 @@ void Arrow::Update(DWORD time)
 		erase_arrow = true;
 	if (Position.y <= -GameField + Size / 2 || Position.y >= GameField /2 - Size / 2)
 		erase_arrow = true;
-
-	LifeTime -= 0.1f;
 }

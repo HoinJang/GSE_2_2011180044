@@ -37,11 +37,11 @@
     <Filter Include="소스 파일\Source\Object\Character_Type1">
       <UniqueIdentifier>{421d783a-82ce-4bde-8d20-4cfdc92a6c3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Source\Object\Character_Type3">
-      <UniqueIdentifier>{a812e5a5-b5c7-400e-8615-7859a6e53e0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Source\Object\Character_Type2">
       <UniqueIdentifier>{14ca8bec-a57b-4d78-a9f3-8d4475108a90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Source\Object\Character_Type3">
+      <UniqueIdentifier>{a812e5a5-b5c7-400e-8615-7859a6e53e0a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

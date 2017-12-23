@@ -202,7 +202,7 @@ void SceneMgr::MouseInput(int button, int state, int x, int y)
 			{
 				if (SelectCharacter == CHARACTER_1 && MyElixir > 3)
 				{
-					AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_1, NULL, Blue);
+					AddObject((float)(x - (WindowWidth / 2)) , (float)((GameField / 2) - y), CHARACTER_1, NULL, Blue);
 					MyElixir -= 3;
 				}
 				else if (SelectCharacter == CHARACTER_2 && MyElixir>7)
@@ -238,64 +238,67 @@ void SceneMgr::CollisionObjectCheck()
 	{
 		for (int j = 0; j < MAX_OBJECTS_COUNT ; j++)
 		{
+			// NULL CHECK
 			if ((m_objects[i] == NULL) || m_objects[j] == NULL) continue;
+			// INDEX가 같을때 CHECK
 			if (i == j) continue;
+			// 같은 팀일때 CHECK
 			if (m_objects[i]->GetTeamFlag() == m_objects[j]->GetTeamFlag()) continue;
 			if (CollisionCheck(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), m_objects[j]->GetPositionX(), m_objects[j]->GetPositionY(), m_objects[i]->GetSize(), m_objects[j]->GetSize()))
 			{
 				if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == CHARACTER_1))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == CHARACTER_2))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == ARROW))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_1) && (m_objects[j]->GetType() == ARROW))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_2) && (m_objects[j]->GetType() == ARROW))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == ARROW))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_1) && (m_objects[j]->GetType() == BULLET))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_2) && (m_objects[j]->GetType() == BULLET))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == BULLET))
 				{
+					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
-					delete m_objects[j];
-					m_objects[j] = NULL;
+					m_objects[j]->Collision_Life(temp);
 				}
 			}
 		}

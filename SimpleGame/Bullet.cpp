@@ -3,10 +3,10 @@
 
 Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
-	Size = ARROWBULLETSIZE + 5;
-	Speed = 600.0f;
+	Size = ARROWBULLETSIZE ;
+	Speed = 250.0f;
 	LifeTime = 10000.0f;
-	Life = 15.0f;
+	Life = ARROWBULLETLIFE;
 
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);

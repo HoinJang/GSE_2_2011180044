@@ -5,7 +5,6 @@
 Character_T2::Character_T2(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
 	Size = 60.0f;
-
 	Speed = 50.0f;
 	LifeTime = 10000.0f;
 	Life = CHARACTERLIFE2;
