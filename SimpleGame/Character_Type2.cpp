@@ -4,12 +4,14 @@
 
 Character_T2::Character_T2(const float x, const float y, const int type, Team flag) : Object(x, y, type, flag)
 {
-	Size = 50.0f;
-	Speed = 300.0f;
-	LifeTime = 10000.0f;
-	Life = 100.0f;
+	Size = 60.0f;
 
-	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	Speed = 50.0f;
+	LifeTime = 10000.0f;
+	Life = CHARACTERLIFE2;
+
+	//Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	Direction.x = 0;
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.Nomalize();
 
@@ -38,18 +40,6 @@ Character_T2::~Character_T2()
 {
 }
 
-bool Character_T2::CreateArrow(DWORD time)
-{
-	float sec = time / 1000.0f;
-	ArrowTimer += sec;
-	if (ArrowTimer > ARROWTIMER)
-	{
-		ArrowTimer = 0.0f;
-		return true;
-	}
-	return false;
-}
-
 void Character_T2::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
@@ -66,7 +56,7 @@ void Character_T2::Update(DWORD time)
 
 	LifeTime -= 0.1f;
 	
-	if (spriteTime > 200)
+	if (spriteTime > 100)
 	{
 		SpriteX += 1;
 		spriteTime = 0;

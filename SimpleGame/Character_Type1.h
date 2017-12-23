@@ -14,7 +14,6 @@ public:
 	Character_T1() {}
 	Character_T1(const float x, const float y, const int type, Team flag);
 	~Character_T1();
-	bool CreateArrow(DWORD time);
 public:
 	void Update(DWORD time);
 };

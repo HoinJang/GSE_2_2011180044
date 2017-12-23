@@ -8,6 +8,9 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY.
 */
 
+
+//
+
 #include "stdafx.h"
 #include <iostream>
 #include "Dependencies\glew.h"
@@ -58,6 +61,9 @@ void SpecialKeyInput(int key, int x, int y)
 
 int main(int argc, char **argv)
 {
+
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	// Initialize GL things
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
