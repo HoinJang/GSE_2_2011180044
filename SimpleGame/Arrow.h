@@ -1,8 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Renderer.h"
-#include "Mydefine.h"
-#include <iostream>
+#include "MyDefine.h"
 
 class Arrow : public Object
 {

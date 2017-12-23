@@ -9,16 +9,17 @@
 #include "Object.h"
 #include "Renderer.h"
 #include "LoadPng.h"
-#include "Mydefine.h"
+#include "MyDefine.h"
 #include "Sound.h"
 //
 #include "Building.h"
-#include "Character.h"
+#include "Character_Type1.h"
+#include "Character_Type2.h"
+#include "Character_Type3.h"
 #include "Bullet.h"
 #include "Arrow.h"
-//
-#define MAX_OBJECTS_COUNT 200
-//
+
+
 
 class SceneMgr
 {
@@ -31,17 +32,25 @@ private:
 	GLuint mBackGround;
 	GLuint mParticleCloud;
 private:
-	GLuint BulletPaticle_tex;
 	GLuint BlueCharacter_01_tex;
 	GLuint RedCharacter_01_tex;
+	GLuint BlueCharacter_02_tex;
+	GLuint RedCharacter_02_tex;
+	GLuint BlueCharacter_03_tex;
+	GLuint RedCharacter_03_tex;
+	
+	GLuint BulletPaticle_tex;
+	
 	GLuint BlueBuilding_tex;
 	GLuint RedBuilding_tex;
-
+	
+	GLuint UI_Box_tex;
+private:
+	Type SelectCharacter;
+	float MyElixir;
 private:
 	float RedCharacterTimer;
-	float BlueCharacterTimer;
 	float ClimateTimer;
-	bool CreateBlueCharacter;
 public:
 	SceneMgr();
 	~SceneMgr();
@@ -58,5 +67,4 @@ private:
 	void AddObject(float x, float y, Type ObjectType, Object* Parent, Team flag);
 	void DeleteBulletArrow();
 	void CreateCharacterRed(DWORD time);
-	void CreateCharacterBlue(DWORD time);
 };

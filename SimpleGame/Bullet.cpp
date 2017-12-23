@@ -54,7 +54,7 @@ void Bullet::Update(DWORD time)
 
 	if (Position.x <= -WindowWidth / 2 + Size / 2 || Position.x >= WindowWidth / 2 - Size / 2)
 		erase_bullet = true;
-	if (Position.y <= -WindowHeight/2 + Size / 2 || Position.y >= WindowHeight/2 - Size / 2)
+	if (Position.y <= -GameField/2 + Size / 2 || Position.y >= GameField /2 - Size / 2)
 		erase_bullet = true;
 
 	LifeTime -= 0.1f;

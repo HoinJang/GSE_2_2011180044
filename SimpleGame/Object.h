@@ -1,24 +1,11 @@
 #pragma once
-#include <iostream>
-#include <string>
 #include "stdafx.h"
 #include "MyVector.h"
+#include "MyDefine.h"
 #include "Renderer.h"
 
 using namespace std;
 
-enum Type
-{
-	BUILDING = 0,
-	CHARACTER,
-	BULLET,
-	ARROW
-};
-enum Team
-{
-	Red = 0,
-	Blue
-};
 typedef struct ObjectC
 {
 	float r;

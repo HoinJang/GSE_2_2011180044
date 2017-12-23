@@ -1,8 +1,8 @@
 #pragma once
+
 #include "Object.h"
 #include "Renderer.h"
-#include <iostream>
-#include "Mydefine.h"
+#include "MyDefine.h"
 
 class Bullet : public Object
 {

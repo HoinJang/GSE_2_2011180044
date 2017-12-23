@@ -1,8 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Renderer.h"
-#include "Character.h"
-#include <iostream>
+#include "MyDefine.h"
 class Building : public Object
 {
 private:

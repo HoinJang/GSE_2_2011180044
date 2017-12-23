@@ -155,9 +155,11 @@
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Character.h" />
+    <ClInclude Include="Character_Type1.h" />
+    <ClInclude Include="Character_Type2.h" />
+    <ClInclude Include="Character_Type3.h" />
     <ClInclude Include="LoadPng.h" />
-    <ClInclude Include="Mydefine.h" />
+    <ClInclude Include="MyDefine.h" />
     <ClInclude Include="MyVector.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />
@@ -170,7 +172,9 @@
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Character_Type1.cpp" />
+    <ClCompile Include="Character_Type2.cpp" />
+    <ClCompile Include="Character_Type3.cpp" />
     <ClCompile Include="LoadPng.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Renderer.cpp" />
