@@ -17,6 +17,5 @@ public:
 	~Character();
 	bool CreateArrow(DWORD time);
 public:
-	void Render(Renderer* renderer);
 	void Update(DWORD time);
 }; 

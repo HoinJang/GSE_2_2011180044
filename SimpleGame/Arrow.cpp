@@ -10,6 +10,7 @@ Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x
 
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	// 교수님 코드 참고
 
 	if (flag == Red)
 	{
@@ -33,23 +34,15 @@ Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x
 			Direction.y *= -1;
 		}
 	}
-	// 교수님 코드 참고
 
 	Direction.Nomalize();
 
 	ParentNode = NULL;
 	erase_arrow = false;
 }
-
 Arrow::~Arrow()
 {
 }
-
-void Arrow::Render(Renderer * renderer)
-{
-	renderer->DrawSolidRect(Position.x, Position.y, 0, Size, Color.r, Color.g, Color.b, Color.a, LEVEL_BULLETARROW);
-}
-
 void Arrow::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;

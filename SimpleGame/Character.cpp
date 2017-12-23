@@ -13,14 +13,22 @@ Character::Character(const float x, const float y, const int type, Team flag) : 
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.Nomalize();
 
-	Color.r = 1.0f;
-	Color.g = 1.0f;
-	Color.b = 1.0f;
-	Color.a = 1.0f;
+	if (flag == Red)
+	{
+		Color.r = 1.0f;
+		Color.g = 0.0f;
+		Color.b = 0.0f;
+		Color.a = 0.0f;
+	}
+	else if(flag == Blue)
+	{
+		Color.r = 0.0f;
+		Color.g = 0.0f;
+		Color.b = 1.0f;
+		Color.a = 0.0f;
+	}
 	ParentNode = NULL;
 
-	c_texture = 0;
-	spriteX = 0;
 	spriteTime = 0;
 }
 
@@ -38,31 +46,6 @@ bool Character::CreateArrow(DWORD time)
 		return true;
 	}
 	return false;
-}
-
-void Character::Render(Renderer * renderer)
-{
-
-	if (c_texture == 0)
-	{
-		if (Teamflag == Red)
-		{
-			c_texture = renderer->CreatePngTexture("./Resources/Red.png");
-		}
-		else
-		{
-			c_texture = renderer->CreatePngTexture("./Resources/Blue.png");
-		}
-	}
-	renderer->DrawTexturedRectSeq(Position.x, Position.y, 0.0, Size + 20, Color.r, Color.g, Color.b, Color.a, c_texture, spriteX, 0,3,1, LEVEL_SKY);
-
-	if (Teamflag == Red)
-		renderer->DrawSolidRectGauge(Position.x, Position.y + Size , 0.0f, Size , LIFEGAUGESIZE,
-			1.0f, 0.0f, 0.0f, 1.0f, Life / CHARACTERLIFE, LEVEL_GROUND);
-	else
-		renderer->DrawSolidRectGauge(Position.x, Position.y + Size, 0.0f, Size , LIFEGAUGESIZE,
-			0.0f, 0.0f, 1.0f, 1.0f, Life / CHARACTERLIFE, LEVEL_GROUND);
-	renderer->DrawTextW(Position.x-Size/2, Position.y - Size, GLUT_BITMAP_HELVETICA_10, 0, 0, 0, "Character");
 }
 
 void Character::Update(DWORD time)
@@ -83,11 +66,11 @@ void Character::Update(DWORD time)
 	
 	if (spriteTime > 200)
 	{
-		spriteX += 1;
+		SpriteX += 1;
 		spriteTime = 0;
 	}
-	if (spriteX == 2)
+	if (SpriteX == 2)
 	{
-		spriteX = 0;
+		SpriteX = 0;
 	}
 }

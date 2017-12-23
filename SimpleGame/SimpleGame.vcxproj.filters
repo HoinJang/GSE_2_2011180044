@@ -25,9 +25,6 @@
     <Filter Include="소스 파일\Source\Object\Buliding">
       <UniqueIdentifier>{9fbe07bb-0e5a-4ed6-98bf-a27c156b8686}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Source\Object\Character">
-      <UniqueIdentifier>{14ca8bec-a57b-4d78-a9f3-8d4475108a90}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Source\Object\Bullet">
       <UniqueIdentifier>{50d9964e-82c2-4a06-9e9c-16cb13e0a1b3}</UniqueIdentifier>
     </Filter>
@@ -36,6 +33,9 @@
     </Filter>
     <Filter Include="소스 파일\Sound">
       <UniqueIdentifier>{441683d3-de55-46c2-8f38-159708910fb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Source\Object\Character_Type2">
+      <UniqueIdentifier>{14ca8bec-a57b-4d78-a9f3-8d4475108a90}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +52,7 @@
       <Filter>소스 파일\Source\Object</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
-      <Filter>소스 파일\Source\Object\Character</Filter>
+      <Filter>소스 파일\Source\Object\Character_Type2</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>소스 파일\Source\Object\Bullet</Filter>
@@ -99,7 +99,7 @@
       <Filter>소스 파일\Source\Object\Buliding</Filter>
     </ClCompile>
     <ClCompile Include="Character.cpp">
-      <Filter>소스 파일\Source\Object\Character</Filter>
+      <Filter>소스 파일\Source\Object\Character_Type2</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>소스 파일\Source\Object\Bullet</Filter>

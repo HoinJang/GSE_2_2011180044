@@ -14,6 +14,5 @@ public:
 	~Arrow();
 	bool GetErase() { return erase_arrow;}
 public:
-	void Render(Renderer* renderer);
 	void Update(DWORD time);
 }; 

@@ -8,11 +8,10 @@ Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object
 	LifeTime = 10000.0f;
 	Life = 15.0f;
 
-
 	Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
-
 	// 교수님 코드 참고
+
 	if (flag == Red)
 	{
 		Color.r = 1.0f;
@@ -40,23 +39,11 @@ Bullet::Bullet(const float x, const float y, const int type, Team flag) : Object
 	erase_bullet = false;
 
 	m_paticletime = 0.0;
-	m_texture = 0;
 }
-
 Bullet::~Bullet()
 {
-}
 
-void Bullet::Render(Renderer * renderer)
-{
-	if (m_texture == 0)
-	{
-		m_texture = renderer->CreatePngTexture("./Resources/Particle.png");
-	}
-	renderer->DrawParticle(Position.x, Position.y, 0.0f, Size, Color.r , Color.g + 0.5, Color.b , 1.0, -Direction.x, -Direction.y, m_texture, m_paticletime, LEVEL_BULLETARROW);
-	//renderer->DrawSolidRect(Position.x, Position.y, 0.0f, Size, Color.r, Color.g, Color.b, Color.a, LEVEL_BULLETARROW);
 }
-
 void Bullet::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;

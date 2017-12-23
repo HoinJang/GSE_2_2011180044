@@ -26,14 +26,22 @@ private:
 	Object *m_objects[MAX_OBJECTS_COUNT];
 	Renderer *m_renderer;
 	Sound *m_sound;
+private:
 	GLuint mSound;
 	GLuint mBackGround;
 	GLuint mParticleCloud;
+private:
+	GLuint BulletPaticle_tex;
+	GLuint BlueCharacter_01_tex;
+	GLuint RedCharacter_01_tex;
+	GLuint BlueBuilding_tex;
+	GLuint RedBuilding_tex;
+
+private:
 	float RedCharacterTimer;
 	float BlueCharacterTimer;
 	float ClimateTimer;
 	bool CreateBlueCharacter;
-	
 public:
 	SceneMgr();
 	~SceneMgr();
