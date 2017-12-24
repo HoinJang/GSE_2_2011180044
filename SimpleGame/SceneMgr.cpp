@@ -109,6 +109,10 @@ void SceneMgr::Destory()
 	m_renderer->DeleteTexture(RedCharacter_01_tex);
 	m_renderer->DeleteTexture(BlueCharacter_01_tex);
 	m_sound->DeleteSound(mSound);
+	m_sound->DeleteSound(mCharacterInitSound);
+	m_sound->DeleteSound(mCollisionSound);
+	m_sound->DeleteSound(mCharacterInitSound2);
+	m_sound->DeleteSound(mCharacterInitSound3);
 	m_renderer = NULL;
 	m_sound = NULL;
 }
