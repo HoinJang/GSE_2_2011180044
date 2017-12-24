@@ -29,6 +29,11 @@ private:
 	Sound *m_sound;
 private:
 	GLuint mSound;
+	GLuint mCharacterInitSound;
+	GLuint mCollisionSound;
+	GLuint mCharacterInitSound2;
+	GLuint mCharacterInitSound3;
+private:
 	GLuint mBackGround;
 	GLuint mParticleCloud;
 	GLuint mParticleFire;

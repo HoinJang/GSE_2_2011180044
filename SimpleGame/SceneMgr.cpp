@@ -23,14 +23,19 @@ SceneMgr::~SceneMgr()
 void SceneMgr::Init()
 {
 	SelectCharacter = NOTSELECT;
-	m_sound = new Sound();
-	mSound = m_sound->CreateSound("./Dependencies/SoundSamples/ophelia.mp3");
-	m_sound->PlaySoundW(mSound, true, 0.2f);
 	m_renderer = new Renderer(WindowWidth, WindowHeight);
 	if (!m_renderer->IsInitialized())
 	{
 		std::cout << "Renderer could not be initialized.. \n";
 	}
+	m_sound = new Sound();
+	mSound = m_sound->CreateSound("./Resources/BackGroundSound.wav");
+	mCharacterInitSound = m_sound->CreateSound("./Resources/CharacterInitSound1.wav");
+	mCollisionSound = m_sound->CreateSound("./Resources/CollisionSound.wav");
+	mCharacterInitSound2 = m_sound->CreateSound("./Resources/CharacterInitSound2.wav");
+	mCharacterInitSound3 = m_sound->CreateSound("./Resources/CharacterInitSound3.wav");
+	//Sound Start
+	m_sound->PlaySoundW(mSound, true, 0.5f);
 	//Character Texture Init
 	BlueCharacter_01_tex = m_renderer->CreatePngTexture("./Resources/Blue_C_1.png");
 	RedCharacter_01_tex = m_renderer->CreatePngTexture("./Resources/Red_C_1.png");
@@ -290,16 +295,19 @@ void SceneMgr::MouseInput(int button, int state, int x, int y)
 				{
 					if (SelectCharacter == CHARACTER_1 && MyElixir > 3)
 					{
+						m_sound->PlaySoundW(mCharacterInitSound, false, 0.7f);
 						AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_1, NULL, Blue);
 						MyElixir -= 3;
 					}
 					else if (SelectCharacter == CHARACTER_2 && MyElixir > 7)
 					{
+						m_sound->PlaySoundW(mCharacterInitSound2, false, 0.7f);
 						AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_2, NULL, Blue);
 						MyElixir -= 7;
 					}
 					else if (SelectCharacter == CHARACTER_3 && MyElixir > 5)
 					{
+						m_sound->PlaySoundW(mCharacterInitSound3, false, 0.7f);
 						AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_3, NULL, Blue);
 						MyElixir -= 5;
 					}
@@ -351,6 +359,7 @@ void SceneMgr::CollisionObjectCheck()
 					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
 					m_objects[j]->Collision_Life(temp);
+					m_sound->PlaySoundW(mCollisionSound, false, 0.5f);
 				}
 				else if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == CHARACTER_2))
 				{
@@ -374,6 +383,7 @@ void SceneMgr::CollisionObjectCheck()
 					((Character_T3*)m_objects[j]->GetParentNode())->SetMove(true);
 					delete m_objects[j];
 					m_objects[j] = NULL;
+					m_sound->PlaySoundW(mCollisionSound, false, 0.5f);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_2) && (m_objects[j]->GetType() == ARROW))
 				{
@@ -387,6 +397,7 @@ void SceneMgr::CollisionObjectCheck()
 					m_objects[i]->Collision_Life(ARROWDAMAGE);
 					delete m_objects[j];
 					m_objects[j] = NULL;
+
 				}
 				else if ((m_objects[i]->GetType() == ARROW) && (m_objects[j]->GetType() == CHARACTER_3))
 				{
@@ -399,6 +410,7 @@ void SceneMgr::CollisionObjectCheck()
 					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(m_objects[j]->GetLife());
 					m_objects[j]->Collision_Life(temp);
+					m_sound->PlaySoundW(mCollisionSound, false, 0.5f);
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_2) && (m_objects[j]->GetType() == BULLET))
 				{
