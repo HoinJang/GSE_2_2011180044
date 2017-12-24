@@ -28,6 +28,7 @@ private:
 	Renderer *m_renderer;
 	Sound *m_sound;
 private:
+	// »ç¿îµå
 	GLuint mSound;
 	GLuint mCharacterInitSound;
 	GLuint mCollisionSound;

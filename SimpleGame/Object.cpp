@@ -30,7 +30,6 @@ void Object::setColor(const float r, const float g, const float b, const float a
 	this->Color.b = b;
 	this->Color.a = a;
 }
-
 void Object::setDirection(const float Vx, const float Vy)
 {
 	this->Direction.SetVector(Vx, Vy);

@@ -36,13 +36,11 @@ Character_T3::Character_T3(const float x, const float y, const int type, Team fl
 	Move = true;
 	EnemyIndex = 0;
 }
-
 Character_T3::~Character_T3()
 {
 	delete ParentNode;
 	ParentNode = NULL;
 }
-
 bool Character_T3::CreateArrow(DWORD time)
 {
 	float sec = time / 1000.0f;

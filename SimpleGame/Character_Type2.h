@@ -23,4 +23,4 @@ public:
 		return this->Attack;
 	}
 	void Update(DWORD time);
-}; 
+};

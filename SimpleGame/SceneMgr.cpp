@@ -78,6 +78,8 @@ void SceneMgr::Init()
 	AddObject(0, -GameField / 2 + 100, BUILDING, NULL, Blue);
 	AddObject(-135, -GameField / 2 + 150, BUILDING, NULL, Blue);
 	AddObject(135, -GameField / 2 + 150, BUILDING, NULL, Blue);
+	//
+	//
 }
 void SceneMgr::Destory() 
 {
