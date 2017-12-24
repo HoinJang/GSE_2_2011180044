@@ -34,6 +34,7 @@ Character_T3::Character_T3(const float x, const float y, const int type, Team fl
 	spriteTime = 0;
 	SpriteX = 0;
 	Move = true;
+	EnemyIndex = 0;
 }
 
 Character_T3::~Character_T3()

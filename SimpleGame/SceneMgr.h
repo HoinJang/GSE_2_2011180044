@@ -31,6 +31,8 @@ private:
 	GLuint mSound;
 	GLuint mBackGround;
 	GLuint mParticleCloud;
+	GLuint mParticleFire;
+	GLuint mParticleFlower;
 private:
 	GLuint BlueCharacter_01_tex;
 	GLuint RedCharacter_01_tex;
@@ -44,12 +46,21 @@ private:
 	GLuint RedBuilding_tex;
 	GLuint UI_Box_tex;
 private:
+	GLuint Win_tex;
+	GLuint Lose_tex;
+private:
 	Type SelectCharacter;
 	float MyElixir;
+	float ComElixir;
 	bool DrawBorder;
 private:
 	float RedCharacterTimer;
 	float ClimateTimer;
+	TeamObjectNum RedNum;
+	TeamObjectNum BlueNum;
+	bool GameEnd;
+	bool Win;
+	bool Lose;
 public:
 	SceneMgr();
 	~SceneMgr();
@@ -66,9 +77,12 @@ private:
 	void CreateBullet(DWORD time);
 	void AddObject(float x, float y, Type ObjectType, Object* Parent, Team flag);
 	void DeleteBulletArrow();
-	void CreateCharacterRed(DWORD time);
+	void CreateCharacterRed();
 private:
 	void SetAICharacter01();
 	void SetAICharacter02();
 	void SetAICharacter03(DWORD time);
+private:
+	void UpdateObjectNum();
+	void GameEndCheck();
 };

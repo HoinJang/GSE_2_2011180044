@@ -13,7 +13,7 @@
 #define ARROWBULLETSIZE 20
 #define LIFEGAUGESIZE 5
 #define ElixirMax 10
-#define ARROWDAMAGE 150.0
+#define ARROWDAMAGE 100.0
 
 // 낮을 수록 뒤에 Render
 #define LEVEL_GOD 0.0
@@ -31,7 +31,7 @@
 #define CHARACTERLIFE3 50.0
 #define ARROWBULLETLIFE 50.0
 
-#define CHARACTER3_BORDER 500.0f
+#define CHARACTER3_BORDER 600.0f
 
 
 
@@ -49,4 +49,12 @@ enum Team
 {
 	Red = 0,
 	Blue
+};
+
+struct TeamObjectNum
+{
+	int BUILDING_NUM;
+	int CHARACTER1_NUM;
+	int CHARACTER2_NUM;
+	int CHARACTER3_NUM;
 };

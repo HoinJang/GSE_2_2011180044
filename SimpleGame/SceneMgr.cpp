@@ -48,14 +48,24 @@ void SceneMgr::Init()
 	mBackGround = m_renderer->CreatePngTexture("./Resources/BackGround.png");
 	//Particle Texture Init
 	mParticleCloud = m_renderer->CreatePngTexture("./Resources/SnowTexture.png");
+	mParticleFire = m_renderer->CreatePngTexture("./Resources/FireTexture.png");
+	mParticleFlower = m_renderer->CreatePngTexture("./Resources/FlowerTexture.png");
 	//UI Texture Init
 	UI_Box_tex = m_renderer->CreatePngTexture("./Resources/UI_Box.png");
-
+	//End Texture Init
+	Win_tex = m_renderer->CreatePngTexture("./Resources/End_Win.png");
+	Lose_tex = m_renderer->CreatePngTexture("./Resources/End_Lose.png");
+	//
+	ComElixir = 0.0f;
 	MyElixir = 0.0f;
 	ClimateTimer = 0.0f;
 	RedCharacterTimer = 5.0f;
 	DrawBorder = false;
-
+	RedNum = { 0,0,0,0 };
+	BlueNum = { 0,0,0,0 };
+	GameEnd = false;
+	Win = false;
+	Lose = false;
 	AddObject(0, GameField/2 - 60, BUILDING, NULL, Red);
 	AddObject(-135, GameField / 2 - 100, BUILDING, NULL, Red);
 	AddObject(135, GameField / 2 - 100, BUILDING, NULL, Red);
@@ -71,10 +81,29 @@ void SceneMgr::Destory()
 		if (m_objects[i] != NULL)
 		{
 			delete m_objects[i];
+			m_objects[i] = NULL;
 		}
 	}
-	delete m_renderer;
-	delete m_sound;
+	m_renderer->DeleteTexture(Lose_tex);
+	m_renderer->DeleteTexture(Win_tex);
+	m_renderer->DeleteTexture(UI_Box_tex);
+	m_renderer->DeleteTexture(mParticleFlower);
+	m_renderer->DeleteTexture(mParticleFire);
+	m_renderer->DeleteTexture(mParticleCloud);
+	m_renderer->DeleteTexture(mBackGround);
+	m_renderer->DeleteTexture(RedBuilding_tex);
+	m_renderer->DeleteTexture(BlueBuilding_tex);
+	m_renderer->DeleteTexture(AttackPaticle_tex);
+	m_renderer->DeleteTexture(BulletPaticle_tex);
+	m_renderer->DeleteTexture(RedCharacter_03_tex);
+	m_renderer->DeleteTexture(BlueCharacter_03_tex);
+	m_renderer->DeleteTexture(RedCharacter_02_tex);
+	m_renderer->DeleteTexture(BlueCharacter_02_tex);
+	m_renderer->DeleteTexture(RedCharacter_01_tex);
+	m_renderer->DeleteTexture(BlueCharacter_01_tex);
+	m_sound->DeleteSound(mSound);
+	m_renderer = NULL;
+	m_sound = NULL;
 }
 void SceneMgr::Render()
 {
@@ -85,7 +114,8 @@ void SceneMgr::Render()
 	// 배경 랜더링
 	m_renderer->DrawTexturedRectXY(0.0, GameFieldAdjust, 0.0, WindowWidth, GameField, 1.0, 1.0, 1.0, 1.0, mBackGround, LEVEL_BACKGROUND);
 	// 기후 랜더링
-	m_renderer->DrawParticleClimate(0.0, 100, 0.0, 3, 1, 1, 1, 1, -0.1, -0.1, mParticleCloud, ClimateTimer, LEVEL_CLIMATE);
+	if(!GameEnd)
+		m_renderer->DrawParticleClimate(0.0, 100, 0.0, 3, 1, 1, 1, 1, -0.1, -0.1, mParticleCloud, ClimateTimer, LEVEL_CLIMATE);
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 	{
 		if (m_objects[i] != NULL)
@@ -111,7 +141,7 @@ void SceneMgr::Render()
 					m_renderer->DrawTexturedRectSeqXY(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY() + GameFieldAdjust, 0.0f, m_objects[i]->GetSize() * 2, m_objects[i]->GetSize(), 1.0f, 1.0f, 1.0f, 1.0f, RedCharacter_02_tex, m_objects[i]->GetSpriteX(), 0, 3, 1, LEVEL_SKY);
 					if (((Character_T2*)m_objects[i])->GetAttack() == true)
 					{
-						m_renderer->DrawParticle(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY() + GameFieldAdjust - m_objects[i]->GetSize(), 0.0f, m_objects[i]->GetSize() / 2, 0.9f, 0.3f, 0.3f, 1.0f, 0.0f, -0.5f, AttackPaticle_tex, m_objects[i]->GetParticleTime(), LEVEL_BULLETARROW);
+						m_renderer->DrawParticle(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY() + GameFieldAdjust - m_objects[i]->GetSize(), 0.0f, m_objects[i]->GetSize() / 2, 0.9f, 0.3f, 0.3f, 1.0f, 0.0f, -0.5f, mParticleFire, m_objects[i]->GetParticleTime(), LEVEL_BULLETARROW);
 					}
 				}
 				else if (m_objects[i]->GetTeamFlag() == Blue)
@@ -119,7 +149,7 @@ void SceneMgr::Render()
 					m_renderer->DrawTexturedRectSeqXY(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY() + GameFieldAdjust, 0.0f, m_objects[i]->GetSize() * 2, m_objects[i]->GetSize(), 1.0f, 1.0f, 1.0f, 1.0f, BlueCharacter_02_tex, m_objects[i]->GetSpriteX(), 0, 3, 1, LEVEL_SKY);
 					if (((Character_T2*)m_objects[i])->GetAttack() == true)
 					{
-						m_renderer->DrawParticle(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY() + GameFieldAdjust + m_objects[i]->GetSize(), 0.0f, m_objects[i]->GetSize()/2 , 0.9f, 0.3f, 0.3f, 1.0f, 0.0f , 0.5f , AttackPaticle_tex, m_objects[i]->GetParticleTime(), LEVEL_BULLETARROW);
+						m_renderer->DrawParticle(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY() + GameFieldAdjust + m_objects[i]->GetSize(), 0.0f, m_objects[i]->GetSize()/2 , 0.9f, 0.3f, 0.3f, 1.0f, 0.0f , 0.5f , mParticleFire, m_objects[i]->GetParticleTime(), LEVEL_BULLETARROW);
 					}
 				}
 				m_renderer->DrawSolidRectGauge(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY() + GameFieldAdjust + m_objects[i]->GetSize()/2, 0.0f, m_objects[i]->GetSize(), LIFEGAUGESIZE, m_objects[i]->GetColorRed(), m_objects[i]->GetColorGreen(), m_objects[i]->GetColorBlue(), 1.0f, m_objects[i]->GetLife() / CHARACTERLIFE2, LEVEL_SKY);
@@ -172,71 +202,107 @@ void SceneMgr::Render()
 		}
 	}
 	m_renderer->DrawTextW(80 , -400, GLUT_BITMAP_HELVETICA_18, 0.0f, 0.0f, 0.0f, "Elixer(Max : 10)");
+	if (Win)
+	{
+		m_renderer->DrawTexturedRectXY(0.0f, 0.0, 0.0, WindowWidth, 200.0f, 1.0, 1.0, 1.0, 1.0, Win_tex, LEVEL_GOD);
+		m_renderer->DrawParticleClimate(0.0, 100, 0.0, 3, 1, 1, 1, 1, -0.1, -0.1, mParticleFlower, ClimateTimer, LEVEL_CLIMATE);
+	}
+	if (Lose)
+	{
+		m_renderer->DrawTexturedRectXY(0.0f, 0.0, 0.0, WindowWidth, 200.0f, 1.0, 1.0, 1.0, 1.0, Lose_tex, LEVEL_GOD);
+		m_renderer->DrawParticleClimate(0.0, 100, 0.0, 3, 1, 1, 1, 1, -0.1, -0.1, mParticleFire, ClimateTimer, LEVEL_CLIMATE);
+	}
 }
 void SceneMgr::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
 
 	ClimateTimer += s;
-	MyElixir += s ;
-	MyElixir = (float)min(MyElixir, 10.0);
-	// 엘릭서 제한
-	SetAICharacter01();
-	SetAICharacter02();
-	SetAICharacter03(time);
-	CreateBullet(time);
-	CreateCharacterRed(time);
-	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
+
+	if (!GameEnd)
 	{
-		if (m_objects[i] != NULL)
-			m_objects[i]->Update(time);
+		MyElixir += s;
+		MyElixir = (float)min(MyElixir, 10.0);
+		ComElixir += 1.5 * s;
+		ComElixir = (float)min(ComElixir, 10.0);
+		// 엘릭서 제한
+		SetAICharacter01();
+		SetAICharacter02();
+		CollisionObjectCheck();
+		SetAICharacter03(time);
+		CreateBullet(time);
+		UpdateObjectNum();
+		CreateCharacterRed();
+		LifeAndLifeTimeCheck();
+		for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
+		{
+			if (m_objects[i] != NULL)
+				m_objects[i]->Update(time);
+		}
+		DeleteBulletArrow();
+		GameEndCheck();
 	}
-	CollisionObjectCheck();
-	LifeAndLifeTimeCheck();
-	DeleteBulletArrow();
 }
 void SceneMgr::MouseInput(int button, int state, int x, int y)
 {
-			//cout << x << " " << y << endl;
-	if (button == GLUT_LEFT_BUTTON)
+
+	if (GameEnd)
 	{
-		if (state == GLUT_UP)
+		if (button == GLUT_LEFT_BUTTON)
 		{
-			if (x >= 0 && x <= 80 && y <= WindowHeight && y >= GameField)
+			if (state == GLUT_UP)
 			{
-				SelectCharacter = CHARACTER_1;
-			}
-			else if (x >= 80 && x <= 160 && y <= WindowHeight && y >= GameField)
-			{
-				SelectCharacter = CHARACTER_2;
-			}
-			else if (x >= 160 && x <= 240 && y <= WindowHeight && y >= GameField)
-			{
-				SelectCharacter = CHARACTER_3;
+				if ((y > GameField / 2 && y < GameField))
+				{	
+					Destory();
+					Init();
+				}
 			}
 		}
 	}
-
-	if (button == GLUT_LEFT_BUTTON)
+	else
 	{
-		if (state == GLUT_UP)
+		//cout << x << " " << y << endl;
+		if (button == GLUT_LEFT_BUTTON)
 		{
-			if ((y > GameField / 2 && y < GameField))
+			if (state == GLUT_UP)
 			{
-				if (SelectCharacter == CHARACTER_1 && MyElixir > 3)
+				if (x >= 0 && x <= 80 && y <= WindowHeight && y >= GameField)
 				{
-					AddObject((float)(x - (WindowWidth / 2)) , (float)((GameField / 2) - y), CHARACTER_1, NULL, Blue);
-					MyElixir -= 3;
+					SelectCharacter = CHARACTER_1;
 				}
-				else if (SelectCharacter == CHARACTER_2 && MyElixir>7)
+				else if (x >= 80 && x <= 160 && y <= WindowHeight && y >= GameField)
 				{
-					AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_2, NULL, Blue);
-					MyElixir -= 7;
+					SelectCharacter = CHARACTER_2;
 				}
-				else if (SelectCharacter == CHARACTER_3 && MyElixir>5)
+				else if (x >= 160 && x <= 240 && y <= WindowHeight && y >= GameField)
 				{
-					AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_3, NULL, Blue);
-					MyElixir -= 5;
+					SelectCharacter = CHARACTER_3;
+				}
+			}
+		}
+
+		if (button == GLUT_LEFT_BUTTON)
+		{
+			if (state == GLUT_UP)
+			{
+				if ((y > GameField / 2 && y < GameField))
+				{
+					if (SelectCharacter == CHARACTER_1 && MyElixir > 3)
+					{
+						AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_1, NULL, Blue);
+						MyElixir -= 3;
+					}
+					else if (SelectCharacter == CHARACTER_2 && MyElixir > 7)
+					{
+						AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_2, NULL, Blue);
+						MyElixir -= 7;
+					}
+					else if (SelectCharacter == CHARACTER_3 && MyElixir > 5)
+					{
+						AddObject((float)(x - (WindowWidth / 2)), (float)((GameField / 2) - y), CHARACTER_3, NULL, Blue);
+						MyElixir -= 5;
+					}
 				}
 			}
 		}
@@ -297,31 +363,36 @@ void SceneMgr::CollisionObjectCheck()
 				}
 				else if ((m_objects[i]->GetType() == BUILDING) && (m_objects[j]->GetType() == ARROW))
 				{
-					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(ARROWDAMAGE);
-					m_objects[j]->Collision_Life(temp);
 					((Character_T3*)m_objects[j]->GetParentNode())->SetMove(true);
+					delete m_objects[j];
+					m_objects[j] = NULL;
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_1) && (m_objects[j]->GetType() == ARROW))
 				{
-					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(ARROWDAMAGE);
-					m_objects[j]->Collision_Life(temp);
 					((Character_T3*)m_objects[j]->GetParentNode())->SetMove(true);
+					delete m_objects[j];
+					m_objects[j] = NULL;
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_2) && (m_objects[j]->GetType() == ARROW))
 				{
-					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(ARROWDAMAGE);
-					m_objects[j]->Collision_Life(temp);
 					((Character_T3*)m_objects[j]->GetParentNode())->SetMove(true);
+					delete m_objects[j];
+					m_objects[j] = NULL;
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == ARROW))
 				{
-					float temp = m_objects[i]->GetLife();
 					m_objects[i]->Collision_Life(ARROWDAMAGE);
-					m_objects[j]->Collision_Life(temp);
-					((Character_T3*)m_objects[j]->GetParentNode())->SetMove(true);
+					delete m_objects[j];
+					m_objects[j] = NULL;
+				}
+				else if ((m_objects[i]->GetType() == ARROW) && (m_objects[j]->GetType() == CHARACTER_3))
+				{
+					m_objects[j]->Collision_Life(ARROWDAMAGE);
+					delete m_objects[i];
+					m_objects[i] = NULL;
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_1) && (m_objects[j]->GetType() == BULLET))
 				{
@@ -360,23 +431,44 @@ void SceneMgr::CreateBullet(DWORD time)
 		}
 	}
 }
-void SceneMgr::CreateCharacterRed(DWORD time)
+void SceneMgr::CreateCharacterRed()
 {
-	float sec = time / 1000.0f;
-	RedCharacterTimer += sec;
-	int Random = rand() % 3 + 1;
-	//int Random = 3;
+	int Think = 300;
 
-	if (RedCharacterTimer >= 5.0f)
+	if (BlueNum.CHARACTER2_NUM > RedNum.CHARACTER2_NUM)
 	{
-		if(Random == 1)
-			AddObject((float)((rand() % WindowWidth) - 200), (float)(rand() % (WindowHeight/2) ), CHARACTER_1, NULL, Red);
-		else if(Random == 2)
+		Think = 100;
+		//cout << BlueNum.CHARACTER2_NUM << " " << RedNum.CHARACTER2_NUM << endl;
+	}
+	if (BlueNum.CHARACTER3_NUM > RedNum.CHARACTER3_NUM)
+	{
+		Think = 200;
+		//cout << BlueNum.CHARACTER3_NUM << " " << RedNum.CHARACTER3_NUM << endl;
+	}
+
+	if (ComElixir >= 7.0f)
+	{
+		if (Think == 100)
+		{
 			AddObject((float)((rand() % WindowWidth) - 200), (float)(rand() % (WindowHeight / 2)), CHARACTER_2, NULL, Red);
-		else if (Random == 3)
+			ComElixir -= 7.0f;
+		}
+		else if (Think == 200)
+		{
 			AddObject((float)((rand() % WindowWidth) - 200), (float)(rand() % (WindowHeight / 2)), CHARACTER_3, NULL, Red);
-		
-		RedCharacterTimer = 0.0f;
+			ComElixir -= 5.0f;
+		}
+		else if (Think == 300)
+		{
+			ComElixir -= 3.0f;
+			AddObject((float)((rand() % WindowWidth) - 200), (float)(rand() % (WindowHeight / 2)), CHARACTER_1, NULL, Red);
+		}
+		/*
+		cout << "T" << Think << endl;
+		cout << "1   " << BlueNum.CHARACTER1_NUM << " " << RedNum.CHARACTER1_NUM << endl;
+		cout << "2   " << BlueNum.CHARACTER2_NUM << " " << RedNum.CHARACTER2_NUM << endl;
+		cout << "3   " << BlueNum.CHARACTER3_NUM << " " << RedNum.CHARACTER3_NUM << endl;
+		*/
 	}
 }
 void SceneMgr::SetAICharacter01()
@@ -557,12 +649,9 @@ void SceneMgr::SetAICharacter03(DWORD time)
 {
 	float dirX = 0.0f;
 	float dirY = 0.0f;
-	int Index = 0;
-	bool CheckEnemy = false;
 
 	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
 	{
-		CheckEnemy = false;
 		for (int j = 0; j < MAX_OBJECTS_COUNT; ++j)
 		{
 			// NULL CHECK
@@ -574,32 +663,28 @@ void SceneMgr::SetAICharacter03(DWORD time)
 				continue;
 			if (CollisionCheck(m_objects[i]->GetPositionX(), m_objects[i]->GetPositionY(), m_objects[j]->GetPositionX(), m_objects[j]->GetPositionY(), CHARACTER3_BORDER, m_objects[j]->GetSize()))
 			{
-				if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == CHARACTER_1))
+				if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == BUILDING))
 				{
 					((Character_T3*)m_objects[i])->SetMove(false);
-					Index = j;
-					CheckEnemy = true;
+					((Character_T3*)m_objects[i])->SetIndex(j);
+					break;
+				}
+				else if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == CHARACTER_1))
+				{
+					((Character_T3*)m_objects[i])->SetMove(false);
+					((Character_T3*)m_objects[i])->SetIndex(j);
 					break;
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == CHARACTER_2))
 				{
 					((Character_T3*)m_objects[i])->SetMove(false);
-					Index = j;
-					CheckEnemy = true;
+					((Character_T3*)m_objects[i])->SetIndex(j);
 					break;
 				}
 				else if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == CHARACTER_3))
 				{
 					((Character_T3*)m_objects[i])->SetMove(false);
-					Index = j;
-					CheckEnemy = true;
-					break;
-				}
-				else if ((m_objects[i]->GetType() == CHARACTER_3) && (m_objects[j]->GetType() == BUILDING))
-				{
-					((Character_T3*)m_objects[i])->SetMove(false);
-					Index = j;
-					CheckEnemy = true;
+					((Character_T3*)m_objects[i])->SetIndex(j);
 					break;
 				}
 			}
@@ -611,10 +696,12 @@ void SceneMgr::SetAICharacter03(DWORD time)
 			continue;
 		if (m_objects[i]->GetType() == CHARACTER_3)
 		{
-			if (((Character_T3*)m_objects[i])->CreateArrow(time))
+			if (((Character_T3*)m_objects[i])->CreateArrow(time) && ((Character_T3*)m_objects[i])->GetMove() == false)
 			{
-				dirX = m_objects[Index]->GetPositionX() - m_objects[i]->GetPositionX();
-				dirY = m_objects[Index]->GetPositionY() - m_objects[i]->GetPositionY();
+				if (m_objects[((Character_T3*)m_objects[i])->GetIndex()] == NULL)
+					break;
+				dirX = m_objects[((Character_T3*)m_objects[i])->GetIndex()]->GetPositionX() - m_objects[i]->GetPositionX();
+				dirY = m_objects[((Character_T3*)m_objects[i])->GetIndex()]->GetPositionY() - m_objects[i]->GetPositionY();
 				for (int j = 0; j < MAX_OBJECTS_COUNT; j++)
 				{
 					if (m_objects[j] != NULL)
@@ -629,6 +716,77 @@ void SceneMgr::SetAICharacter03(DWORD time)
 		}
 	}
 
+}
+void SceneMgr::UpdateObjectNum()
+{
+	TeamObjectNum tempRed = { 0,0,0,0 };
+	TeamObjectNum tempBlue = { 0,0,0,0 };
+	for (int i = 0; i < MAX_OBJECTS_COUNT; ++i)
+	{
+		if (m_objects[i] != NULL)
+		{
+			if (m_objects[i]->GetType() == BUILDING)
+			{
+				if (m_objects[i]->GetTeamFlag() == Red)
+					tempRed.BUILDING_NUM++;
+				else if (m_objects[i]->GetTeamFlag() == Blue)
+					tempBlue.BUILDING_NUM++;
+			}
+			else if (m_objects[i]->GetType() == CHARACTER_1)
+			{
+				if (m_objects[i]->GetTeamFlag() == Red)
+					tempRed.CHARACTER1_NUM++;
+				else if (m_objects[i]->GetTeamFlag() == Blue)
+					tempBlue.CHARACTER1_NUM++;
+			}
+			else if (m_objects[i]->GetType() == CHARACTER_2)
+			{
+				if (m_objects[i]->GetTeamFlag() == Red)
+					tempRed.CHARACTER2_NUM++;
+				else if (m_objects[i]->GetTeamFlag() == Blue)
+					tempBlue.CHARACTER2_NUM++;
+			}
+			else if (m_objects[i]->GetType() == CHARACTER_3)
+			{
+				if (m_objects[i]->GetTeamFlag() == Red)
+					tempRed.CHARACTER3_NUM++;
+				else if (m_objects[i]->GetTeamFlag() == Blue)
+					tempBlue.CHARACTER3_NUM++;
+			}
+		}
+	}
+	RedNum = tempRed;
+	BlueNum = tempBlue;
+}
+void SceneMgr::GameEndCheck()
+{
+	if (m_objects[0] == NULL)
+	{
+		GameEnd = true;
+		Win = true;
+		Lose = false;
+	}
+	else if (m_objects[3] == NULL)
+	{
+		GameEnd = true;
+		Win = false;
+		Lose = true;
+	}
+	else
+	{
+		if (m_objects[0]->GetType() != BUILDING)
+		{
+			GameEnd = true;
+			Win = true;
+			Lose = false;
+		}
+		else if (m_objects[3]->GetType() != BUILDING)
+		{
+			GameEnd = true;
+			Win = false;
+			Lose = true;
+		}
+	}
 }
 //수정 안해도 되는 것들
 bool SceneMgr::CollisionCheck(float x1, float y1, float x2, float y2, float size1, float size2)

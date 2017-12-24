@@ -11,6 +11,7 @@ private:
 	int spriteX;
 	int spriteTime;
 	bool Move;
+	int EnemyIndex;
 public:
 	Character_T3() {}
 	Character_T3(const float x, const float y, const int type, Team flag);
@@ -24,6 +25,14 @@ public:
 	void SetMove(bool Move)
 	{
 		this->Move = Move;
+	}
+	int GetIndex()
+	{
+		return this->EnemyIndex;
+	}
+	void SetIndex(int index)
+	{
+		this->EnemyIndex = index;
 	}
 public:
 	void Update(DWORD time);
