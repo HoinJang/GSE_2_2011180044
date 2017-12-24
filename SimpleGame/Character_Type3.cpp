@@ -6,7 +6,7 @@ Character_T3::Character_T3(const float x, const float y, const int type, Team fl
 {
 	Size = 50.0f;
 	Speed = 20.0f;
-	LifeTime = 1000.0f;
+	LifeTime = 10000.0f;
 	Life = CHARACTERLIFE1;
 
 	Direction.x = 0;
@@ -33,18 +33,22 @@ Character_T3::Character_T3(const float x, const float y, const int type, Team fl
 
 	spriteTime = 0;
 	SpriteX = 0;
-
+	Move = true;
 }
 
 Character_T3::~Character_T3()
 {
+	delete ParentNode;
+	ParentNode = NULL;
 }
 
 bool Character_T3::CreateArrow(DWORD time)
 {
 	float sec = time / 1000.0f;
-	ArrowTimer += sec;
-
+	if (!Move)
+	{
+		ArrowTimer += sec;
+	}
 	if (ArrowTimer > ARROWTIMER)
 	{
 		ArrowTimer = 0.0f;
@@ -59,9 +63,11 @@ void Character_T3::Update(DWORD time)
 
 	spriteTime += 1;
 
-	Position.x += Direction.x * Speed * s;
-	Position.y += Direction.y * Speed * s;
-
+	if (Move)
+	{
+		Position.x += Direction.x * Speed * s;
+		Position.y += Direction.y * Speed * s;
+	}
 	if (Position.x <= -WindowWidth / 2 + Size / 2 || Position.x >= WindowWidth / 2 - Size / 2)
 		Direction.x = Direction.x * -1;
 	if (Position.y <= -GameField / 2 + Size / 2 || Position.y >= GameField / 2 - Size / 2)

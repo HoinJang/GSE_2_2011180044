@@ -53,6 +53,7 @@ public:
 	Team const GetTeamFlag() { return Teamflag; }
 	Object* const GetParentNode() { return ParentNode; }
 
+
 	void setType(const int type) { this->Type = type; }
 	void setSize(const float size) { this->Size = size; }
 	void setParentNode(Object* Node) { this->ParentNode = Node; }

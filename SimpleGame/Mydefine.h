@@ -13,7 +13,7 @@
 #define ARROWBULLETSIZE 20
 #define LIFEGAUGESIZE 5
 #define ElixirMax 10
-
+#define ARROWDAMAGE 150.0
 
 // 낮을 수록 뒤에 Render
 #define LEVEL_GOD 0.0
@@ -26,12 +26,13 @@
 
 // 오브젝트들의 체력
 #define BUILDINGLIFE 800.0
-#define CHARACTERLIFE1 50.0
+#define CHARACTERLIFE1 100.0
 #define CHARACTERLIFE2 200.0
 #define CHARACTERLIFE3 50.0
-
-
 #define ARROWBULLETLIFE 50.0
+
+#define CHARACTER3_BORDER 500.0f
+
 
 
 enum Type

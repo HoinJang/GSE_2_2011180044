@@ -9,9 +9,8 @@ Character_T1::Character_T1(const float x, const float y, const int type, Team fl
 	LifeTime = 10000.0f;
 	Life = 100.0f;
 
-	Direction.x = 0;
-	//Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
-	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
+	Direction.x = 1;
+	Direction.y = 1;
 	Direction.Nomalize();
 
 	if (flag == Red)
@@ -32,11 +31,12 @@ Character_T1::Character_T1(const float x, const float y, const int type, Team fl
 
 	spriteTime = 0;
 	SpriteX = 0;
-
 }
 
 Character_T1::~Character_T1()
 {
+	delete ParentNode;
+	ParentNode = NULL;
 }
 
 void Character_T1::Update(DWORD time)

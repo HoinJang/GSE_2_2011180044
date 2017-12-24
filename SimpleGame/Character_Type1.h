@@ -6,8 +6,6 @@
 class Character_T1 : public Object
 {
 private:
-	float ArrowTimer;
-	GLuint c_texture;
 	int spriteX;
 	int spriteTime;
 public:

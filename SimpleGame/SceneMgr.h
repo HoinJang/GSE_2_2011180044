@@ -38,16 +38,15 @@ private:
 	GLuint RedCharacter_02_tex;
 	GLuint BlueCharacter_03_tex;
 	GLuint RedCharacter_03_tex;
-	
 	GLuint BulletPaticle_tex;
-	
+	GLuint AttackPaticle_tex;
 	GLuint BlueBuilding_tex;
 	GLuint RedBuilding_tex;
-	
 	GLuint UI_Box_tex;
 private:
 	Type SelectCharacter;
 	float MyElixir;
+	bool DrawBorder;
 private:
 	float RedCharacterTimer;
 	float ClimateTimer;
@@ -59,12 +58,17 @@ public:
 	void Render();
 	void Update(DWORD time);
 	void MouseInput(int button, int state, int x, int y);
+	void KeyInput(unsigned char key, int x, int y);
 private:
 	bool CollisionCheck(float x1, float y1, float x2, float y2, float size1, float size2);
 	void LifeAndLifeTimeCheck();
 	void CollisionObjectCheck();
-	void CreateBulletArrow(DWORD time);
+	void CreateBullet(DWORD time);
 	void AddObject(float x, float y, Type ObjectType, Object* Parent, Team flag);
 	void DeleteBulletArrow();
 	void CreateCharacterRed(DWORD time);
+private:
+	void SetAICharacter01();
+	void SetAICharacter02();
+	void SetAICharacter03(DWORD time);
 };

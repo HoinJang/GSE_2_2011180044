@@ -39,6 +39,7 @@ Arrow::Arrow(const float x, const float y, const int type, Team flag) : Object(x
 
 	ParentNode = NULL;
 	erase_arrow = false;
+	m_paticletime = 0.0;
 }
 Arrow::~Arrow()
 {
@@ -46,6 +47,7 @@ Arrow::~Arrow()
 void Arrow::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
+	m_paticletime += s;
 
 	Position.x += Direction.x * Speed * s ;
 	Position.y += Direction.y * Speed * s ;

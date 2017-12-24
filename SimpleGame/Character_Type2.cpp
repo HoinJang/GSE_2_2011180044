@@ -9,7 +9,6 @@ Character_T2::Character_T2(const float x, const float y, const int type, Team fl
 	LifeTime = 10000.0f;
 	Life = CHARACTERLIFE2;
 
-	//Direction.x = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.x = 0;
 	Direction.y = (((float)std::rand() / (float)RAND_MAX) - 0.5f);
 	Direction.Nomalize();
@@ -29,25 +28,32 @@ Character_T2::Character_T2(const float x, const float y, const int type, Team fl
 		Color.a = 0.0f;
 	}
 	ParentNode = NULL;
-
+	
 	spriteTime = 0;
 	SpriteX = 0;
+	Attack = false;
 
+	m_paticletime += 0.0f;
 }
 
 Character_T2::~Character_T2()
 {
+	delete ParentNode;
+	ParentNode = NULL;
 }
 
 void Character_T2::Update(DWORD time)
 {
 	float s = (float)time / 1000.0f;
+	m_paticletime += s;
 
 	spriteTime += 1;
 
-	Position.x += Direction.x * Speed * s ;
-	Position.y += Direction.y * Speed * s ;
-
+	if (!Attack)
+	{
+		Position.x += Direction.x * Speed * s;
+		Position.y += Direction.y * Speed * s;
+	}
 	if (Position.x <= -WindowWidth/2 + Size / 2 || Position.x >= WindowWidth/2 - Size / 2)
 		Direction.x = Direction.x * -1;
 	if (Position.y <= -GameField / 2 + Size / 2 || Position.y >= GameField / 2 - Size / 2)

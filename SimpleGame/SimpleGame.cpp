@@ -51,6 +51,7 @@ void MouseInput(int button, int state, int x, int y)
 
 void KeyInput(unsigned char key, int x, int y)
 {
+	g_SceneMgr->KeyInput(key, x, y);
 	RenderScene();
 }
 

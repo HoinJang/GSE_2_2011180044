@@ -34,6 +34,7 @@ void Object::setColor(const float r, const float g, const float b, const float a
 void Object::setDirection(const float Vx, const float Vy)
 {
 	this->Direction.SetVector(Vx, Vy);
+	this->Direction.Nomalize();
 }
 
 void Object::setSpeed(const float speed)
